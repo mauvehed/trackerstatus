@@ -1,5 +1,5 @@
 # trackerstatus
-A python library for gathering data from the trackerstatus.info website
+A python library for gathering data from the https://trackerstatus.info website
 
 ## Install via Pip
 ```pip install trackerstatus```
