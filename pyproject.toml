@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "A python library for gathering data from the trackerstatus.info website"
 authors = ["mauvehed <mh@mvh.dev>"]
 readme = "README.md"
+repository = "https://github.com/mauvehed/trackerstatus"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
