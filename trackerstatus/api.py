@@ -23,13 +23,12 @@ class Trackerstatus:
     def get_site_api(self, api_type):
         '''Get the API data
 
-        api_type can be one of the following:
-        - status
-        - latency
-        - uptime
-        - records
-        - downtime
-        - all
+        Args:
+            api_type (str): The API type to fetch data for
+                            Must match 'status', 'latency', 'uptime', 'records', 'downtime' or 'all'
+
+        Returns:
+            dict: The data from the API
         '''
         api_site_url = f'https://{self.site_name}.trackerstatus.info/api/{api_type}/'
         response_is = requests.get(api_site_url,timeout=15)
