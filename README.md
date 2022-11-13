@@ -9,7 +9,9 @@ A python library for gathering data from the [https://trackerstatus.info](https:
 
 ## Install via Pip
 
-```pip install trackerstatus```
+```
+pip install trackerstatus
+```
 
 ## Resources
 
