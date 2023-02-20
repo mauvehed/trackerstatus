@@ -51,10 +51,10 @@ class Trackerstatus:
         return self._extracted_from_get_sites_all_api(API_ALL_SITES_URL)
 
     def _extracted_from_get_sites_all_api(self, api_site_url):
-        """Get the API data for the specific api_type
+        """Get the API data for the specific api_site_url
         
         Args:
-            api_type (str, optional):  Defaults to 'all'.
+            api_site_url (str, optional):  Defaults to 'all'.
         
             The API type to fetch data for
             Must be one of 'status', 'latency', 'uptime', 'records', 'downtime' or 'all'
