@@ -37,10 +37,8 @@ class Trackerstatus:
             dict: The data retrieved from the API
         """
         api_site_url = f'https://{self.site_name}.trackerstatus.info/api/{api_type}/'
-        response_is = requests.get(api_site_url,timeout=15)
-        if response_is.status_code == 200:
-            self.data = response_is.json()
-        return self.data
+        return self._extracted_from_get_sites_all_api(api_site_url)
+
 
     def get_sites_all_api(self):
         """Get the top level /api/list/ sites API data
@@ -50,7 +48,21 @@ class Trackerstatus:
         Returns:
             dict: The data retrieved from the API
         """
-        response_is = requests.get(API_ALL_SITES_URL,timeout=15)
+        return self._extracted_from_get_sites_all_api(API_ALL_SITES_URL)
+
+    def _extracted_from_get_sites_all_api(self, api_site_url):
+        """Get the API data for the specific api_type
+        
+        Args:
+            api_type (str, optional):  Defaults to 'all'.
+        
+            The API type to fetch data for
+            Must be one of 'status', 'latency', 'uptime', 'records', 'downtime' or 'all'
+        
+        Returns:
+            dict: The data retrieved from the API
+        """
+        response_is = requests.get(api_site_url, timeout=15)
         if response_is.status_code == 200:
             self.data = response_is.json()
         return self.data
