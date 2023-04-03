@@ -127,3 +127,4 @@ class Trackerstatus:
         """
 
         return self.get_site_api('all')
+
