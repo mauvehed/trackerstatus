@@ -27,6 +27,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 *.whl
+*.lock
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
