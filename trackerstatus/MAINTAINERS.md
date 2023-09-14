@@ -18,13 +18,13 @@ poetry export --without-hashes --format=requirements.txt > requirements.txt
 
 ### Updating requirements.txt
 
-
 ## Releasing a new version
 
 1. Update the value of `version` in pyproject.toml to match the new release number
-2. 
 
 ## Publishing a new version (pypi)
+
+A full documentation reference can be [found here](https://www.digitalocean.com/community/tutorials/how-to-publish-python-packages-to-pypi-using-poetry-on-ubuntu-22-04#step-3-building-your-project) (DigitalOcean)
 
 ```bash
 poetry build
