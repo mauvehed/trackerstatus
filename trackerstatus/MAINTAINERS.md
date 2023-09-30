@@ -1,21 +1,24 @@
 # Maintainers
 
-This document is intended to assist the maintainers of this repository and software package.
+This document is intended to assist the maintainers of this repository and software package with various tasks.
 
-## Updating dependencies via poetry
+## Miscellaneous tasks
+### Updating dependencies via poetry
 ```bash
 poetry update
 ```
 
-## Updating supported versions of python
+### Updating supported versions of python
+
+#### Update GitHub Actions
+1. Update `python-version` in `.github/workflows/pylint.yml`
+2. Update `python-version` in `.github/workflows/sourcery.yml`
+3. Update `python-version` in `.sourcery.yaml`
+
+#### Update pyproject.toml
 Update the tool.poetry.dependencies.python field in `pyproject.toml`
 
-### Update GitHub Actions
-
-### Update pyproject.toml
-
-
-### Updating requirements.txt
+#### Updating requirements.txt
 ```bash
 poetry export --without-hashes --format=requirements.txt > requirements.txt
 ```
@@ -28,13 +31,28 @@ poetry export --without-hashes --format=requirements.txt > requirements.txt
 
 A full documentation reference can be [found here](https://www.digitalocean.com/community/tutorials/how-to-publish-python-packages-to-pypi-using-poetry-on-ubuntu-22-04#step-3-building-your-project) (DigitalOcean)
 
+#### Update dependencies via poetry
+
+```bash
+poetry update
+```
+
+#### Build package via poetry
+
 ```bash
 poetry build
+```
 
+#### Publish package to pypi via poetry
+
+This step requires having the proper credentials configured for the Trackerstatus pypi page. Currently
+this access is maintained by [@mauvehed](https://github.com/mauvehed).
+
+```bash
 poetry publish
 ```
 
-This will publish a new package to the official PyPi page at [https://pypi.org/project/trackerstatus/](https://pypi.org/project/trackerstatus/)
+This will publish a new package to the official [PyPi page](https://pypi.org/project/trackerstatus/).
 
 ### Publish a new version on Github.com
 
