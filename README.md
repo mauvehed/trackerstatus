@@ -3,7 +3,9 @@
 [![PyPI](https://img.shields.io/pypi/v/trackerstatus.svg)](https://pypi.org/project/trackerstatus/)
 [![Python Version](https://img.shields.io/pypi/pyversions/trackerstatus.svg)](https://github.com/mauvehed/yourIP/actions/workflows/main.yml)
 [![CodeQL](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml)
-[![Pylint](https://github.com/mauvehed/trackerstatus/actions/workflows/pylint.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/pylint.yml)
+[![Mypy](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml)
+[![Run PyTests and Coverage](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml)
+[![Create release and notes](https://github.com/mauvehed/trackerstatus/actions/workflows/create-new-release.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/create-new-release.yml)
 
 A Python library for interacting with the [trackerstatus.info](https://trackerstatus.info) API. Trackerstatus.info provides real-time status updates and historical data for various trackers, helping users monitor and analyze tracker performance.
 
