@@ -37,7 +37,11 @@ def test_get_btn_status(btn_endpoint):
     """
     response = btn_endpoint.get_btn_status()
     assert isinstance(response, dict)
-    assert 'Website' in response
+import re
+
+assert 'Website' in response
+assert isinstance(response['Website'], str)
+assert re.match(r'^https?://', response['Website'])
     assert 'TrackerHTTP' in response
     assert 'TrackerHTTPS' in response
     assert 'IRC' in response
