@@ -1,4 +1,7 @@
 import pytest
+from requests.exceptions import HTTPError, Timeout
+from trackerstatus.core import APIClient
+from trackerstatus.endpoints.btn import BTNEndpoint
 from trackerstatus.core import APIClient
 from trackerstatus.endpoints.btn import BTNEndpoint
 
