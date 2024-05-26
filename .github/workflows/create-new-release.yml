@@ -1,0 +1,44 @@
+name: Create release and notes
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry --version
+
+    - name: Install dependencies
+      run: poetry install
+
+    - name: Install poetry-plugin-export
+      run: poetry self add poetry-plugin-export
+
+    - name: Export requirements.txt
+      run: poetry export --without-hashes -f requirements.txt --output requirements.txt
+
+    - name: Export dev-requirements.txt
+      run: poetry export --without-hashes --with dev -f requirements.txt --output dev-requirements.txt
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2.0.5
+      with:
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
