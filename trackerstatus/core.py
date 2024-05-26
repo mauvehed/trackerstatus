@@ -27,5 +27,10 @@ class APIClient:
         """
         url = f'{self.base_url}/{endpoint}'
         response = self.session.get(url, params=params)
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as http_err:
+            raise SystemExit(f'HTTP error occurred: {http_err}')
+        except Exception as err:
+            raise SystemExit(f'Other error occurred: {err}')
         return response.json()
