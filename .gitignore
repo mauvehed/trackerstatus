@@ -161,4 +161,4 @@ cython_debug/
 # Snyk vuln scanner
 .dccache
 
-.tools-versions
+.tool-versions
