@@ -5,7 +5,7 @@
 [![CodeQL](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml)
 [![Pylint](https://github.com/mauvehed/trackerstatus/actions/workflows/pylint.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/pylint.yml)
 
-A Python library for interacting with [trackerstatus.info](https://trackerstatus.info) API.
+A Python library for interacting with the [trackerstatus.info](https://trackerstatus.info) API. Trackerstatus.info provides real-time status updates and historical data for various trackers, helping users monitor and analyze tracker performance.
 
 ## Installation
 
