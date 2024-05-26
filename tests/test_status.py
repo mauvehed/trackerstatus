@@ -35,6 +35,11 @@ def test_get_tracker_statuses(status_endpoint):
     response = status_endpoint.get_tracker_statuses()
     assert isinstance(response, dict)
     assert 'ar' in response
+    assert isinstance(response['ar'], dict)
+    assert 'URL' in response['ar']
+    assert isinstance(response['ar']['URL'], str)
+    assert 'Status' in response['ar']
+    assert isinstance(response['ar']['Status'], str)
     assert 'URL' in response['ar']
     assert 'Status' in response['ar']
     assert 'Description' in response['ar']
