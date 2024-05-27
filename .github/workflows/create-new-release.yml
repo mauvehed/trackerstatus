@@ -1,4 +1,4 @@
-name: Create release and notes
+name: Release and publish
 
 on:
   push:
@@ -42,3 +42,15 @@ jobs:
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build package
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry build
+
+    - name: Publish to PyPI
+      env:
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        export PATH="$HOME/.local/bin:$PATH"
+        poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}
