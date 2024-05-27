@@ -124,6 +124,6 @@ To run tests, you can use pytest. Make sure you have all development dependencie
 
 ```bash
 poetry install
+poetry shell
 pytest
 ```
-

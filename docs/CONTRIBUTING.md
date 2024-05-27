@@ -4,20 +4,11 @@ Thank you for your interest in contributing to the TrackerStatus project! This d
 
 ## Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [Setting Up the Project](#setting-up-the-project)
-3. [Running Tests](#running-tests)
-4. [Type Checking](#type-checking)
-5. [Building the Package](#building-the-package)
-6. [Submitting Changes](#submitting-changes)
-
-## Prerequisites
-
-Ensure you have the following software installed on your machine:
-
-- [Python](https://www.python.org/downloads/) (version 3.9 or higher)
-- [Poetry](https://python-poetry.org/docs/#installation) (version 1.1.0 or higher)
-- [Git](https://git-scm.com/)
+1. [Setting Up the Project](#setting-up-the-project)
+1. [Running Tests](#running-tests)
+1. [Type Checking](#type-checking)
+1. [Building the Package](#building-the-package)
+1. [Submitting Changes](#submitting-changes)
 
 ## Setting Up the Project
 
