@@ -28,7 +28,6 @@ To create a new release:
 1. Update `python-version` in `.github/workflows/generate-requirements.yml`
 1. Update `python-version` in `.github/workflows/mypy-linting.yml`
 1. Update `python-version` in `.github/workflows/pytestts-coverage.yml`
-1. Update `python-version` in `.github/workflows/sourcery.yml`
 1. Update `python-version` in `.sourcery.yaml`
 1. Update `tool.poetry.dependencies.python` field in pyproject.toml
 
