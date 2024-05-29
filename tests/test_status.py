@@ -6,7 +6,7 @@ from trackerstatus.endpoints.status import StatusEndpoint
 def api_client():
     """
     Fixture to create an APIClient instance.
-    
+
     Returns:
         APIClient: An instance of the APIClient.
     """
@@ -16,10 +16,10 @@ def api_client():
 def status_endpoint(api_client):
     """
     Fixture to create a StatusEndpoint instance.
-    
+
     Args:
         api_client (APIClient): An instance of the APIClient.
-    
+
     Returns:
         StatusEndpoint: An instance of the StatusEndpoint.
     """
@@ -28,7 +28,7 @@ def status_endpoint(api_client):
 def test_get_tracker_statuses(status_endpoint):
     """
     Tests the get_tracker_statuses method of the StatusEndpoint.
-    
+
     Args:
         status_endpoint (StatusEndpoint): An instance of the StatusEndpoint.
     """
