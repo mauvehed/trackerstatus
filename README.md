@@ -26,8 +26,8 @@ poetry add trackerstatus
 
 ## Resources
 
-* Github repo: [https://github.com/mauvehed/trackerstatus/](https://github.com/mauvehed/trackerstatus/)
-* Pip package: [https://pypi.org/project/trackerstatus/](https://pypi.org/project/trackerstatus/)
+- Github repo: [https://github.com/mauvehed/trackerstatus/](https://github.com/mauvehed/trackerstatus/)
+- Pip package: [https://pypi.org/project/trackerstatus/](https://pypi.org/project/trackerstatus/)
 
 ## Usage
 
@@ -67,6 +67,7 @@ print("Status:", status)
 ```
 
 #### Fetching BTN Latency
+
 To get the latency of all BTN services:
 
 ```python
@@ -111,6 +112,7 @@ print("All Data:", all_data)
 ```
 
 #### Fetching Tracker Statuses
+
 To get the statuses of all trackers:
 
 ```python

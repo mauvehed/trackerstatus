@@ -23,19 +23,19 @@ Thank you for your interest in contributing to the TrackerStatus project! This d
 
 2. **Install Dependencies**
 
-    Use Poetry to install the project dependencies:
+   Use Poetry to install the project dependencies:
 
-    ```sh
-    poetry install
-    ```
+   ```sh
+   poetry install
+   ```
 
 3. **Activate the Virtual Environment**
 
-    Activate the virtual environment created by Poetry:
+   Activate the virtual environment created by Poetry:
 
-    ```sh
-    poetry shell
-    ```
+   ```sh
+   poetry shell
+   ```
 
 ## Developer Expectations
 
@@ -65,55 +65,55 @@ To build the package for local testing, follow these steps:
 
 1. **Build the Package**
 
-    Use Poetry to build the package:
+   Use Poetry to build the package:
 
-    ```sh
-    poetry build
-    ```
+   ```sh
+   poetry build
+   ```
 
-    This will create the distribution files in the dist directory.
+   This will create the distribution files in the dist directory.
 
 2. **Install the Package Locally**
 
-    You can install the built package locally to test it:
+   You can install the built package locally to test it:
 
-    ```sh
-    pip install dist/trackerstatus-0.1.0-py3-none-any.whl
-    ```
+   ```sh
+   pip install dist/trackerstatus-0.1.0-py3-none-any.whl
+   ```
 
-    Replace `trackerstatus-0.1.0-py3-none-any.whl` with the actual filename of the built package in dist/
+   Replace `trackerstatus-0.1.0-py3-none-any.whl` with the actual filename of the built package in dist/
 
 ## Submitting Changes
 
 1. **Create a Branch**
 
-    Create a new branch for your feature or bug fix:
+   Create a new branch for your feature or bug fix:
 
-    ```sh
-    git checkout -b feature/your-feature-name
-    ```
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
 
 2. **Make Changes**
 
-    Make your changes in the new branch.
+   Make your changes in the new branch.
 
 3. **Commit Changes**
 
-    Commit your changes with a descriptive commit message:
+   Commit your changes with a descriptive commit message:
 
-    ```sh
-    git add .
-    git commit -m "Add your descriptive commit message here"
-    ```
+   ```sh
+   git add .
+   git commit -m "Add your descriptive commit message here"
+   ```
 
 4. **Push Changes**
 
-    Push your changes to your fork:
+   Push your changes to your fork:
 
-    ```sh
-    git push origin feature/your-feature-name
-    ```
+   ```sh
+   git push origin feature/your-feature-name
+   ```
 
 5. **Open a Pull Request**
 
-    Open a pull request on GitHub from your fork to the main repository.
+   Open a pull request on GitHub from your fork to the main repository.
