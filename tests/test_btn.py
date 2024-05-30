@@ -9,7 +9,7 @@ from trackerstatus.endpoints.btn import BTNEndpoint
 def api_client():
     """
     Fixture to create an APIClient instance.
-    
+
     Returns:
         APIClient: An instance of the APIClient.
     """
@@ -19,10 +19,10 @@ def api_client():
 def btn_endpoint(api_client):
     """
     Fixture to create a BTNEndpoint instance.
-    
+
     Args:
         api_client (APIClient): An instance of the APIClient.
-    
+
     Returns:
         BTNEndpoint: An instance of the BTNEndpoint.
     """
@@ -31,7 +31,7 @@ def btn_endpoint(api_client):
 def test_get_btn_status(btn_endpoint):
     """
     Tests the get_btn_status method of the BTNEndpoint.
-    
+
     Args:
         btn_endpoint (BTNEndpoint): An instance of the BTNEndpoint.
     """
@@ -51,7 +51,7 @@ def test_get_btn_status(btn_endpoint):
 def test_get_btn_latency(btn_endpoint):
     """
     Tests the get_btn_latency method of the BTNEndpoint.
-    
+
     Args:
         btn_endpoint (BTNEndpoint): An instance of the BTNEndpoint.
     """
@@ -67,7 +67,7 @@ def test_get_btn_latency(btn_endpoint):
 def test_get_btn_uptime(btn_endpoint):
     """
     Tests the get_btn_uptime method of the BTNEndpoint.
-    
+
     Args:
         btn_endpoint (BTNEndpoint): An instance of the BTNEndpoint.
     """
@@ -83,7 +83,7 @@ def test_get_btn_uptime(btn_endpoint):
 def test_get_btn_records(btn_endpoint):
     """
     Tests the get_btn_records method of the BTNEndpoint.
-    
+
     Args:
         btn_endpoint (BTNEndpoint): An instance of the BTNEndpoint.
     """
@@ -99,7 +99,7 @@ def test_get_btn_records(btn_endpoint):
 def test_get_btn_downtime(btn_endpoint):
     """
     Tests the get_btn_downtime method of the BTNEndpoint.
-    
+
     Args:
         btn_endpoint (BTNEndpoint): An instance of the BTNEndpoint.
     """
@@ -115,7 +115,7 @@ def test_get_btn_downtime(btn_endpoint):
 def test_get_btn_all(btn_endpoint):
     """
     Tests the get_btn_all method of the BTNEndpoint.
-    
+
     Args:
         btn_endpoint (BTNEndpoint): An instance of the BTNEndpoint.
     """
