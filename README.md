@@ -71,7 +71,7 @@ for tracker in ["ar", "btn", "ggn", "ptp", "red", "ops"]:
     print(f"{tracker.upper()}: {status.status}")
 ```
 
-For more detailed examples, see the [examples documentation](docs/EXAMPLES.md).
+For more detailed examples, see the [examples documentation](https://github.com/mauvehed/trackerstatus/blob/main/docs/EXAMPLES.md).
 
 ## Documentation
 
@@ -100,4 +100,4 @@ poetry run mypy .
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/mauvehed/trackerstatus/blob/main/LICENSE) file for details.
