@@ -1,6 +1,27 @@
-# trackerstatus/__init__.py
-from .core import APIClient
-from .endpoints.status import StatusEndpoint
-from .endpoints.btn import BTNEndpoint
+"""
+trackerstatus - A Python wrapper for the trackerstatus.info API
+"""
 
-__all__ = ['APIClient', 'StatusEndpoint', 'BTNEndpoint']
+from trackerstatus.core import APIClient
+from trackerstatus.endpoints.ar import AREndpoint
+from trackerstatus.endpoints.base import BaseTrackerEndpoint, TrackerStatus
+from trackerstatus.endpoints.btn import BTNEndpoint
+from trackerstatus.endpoints.ggn import GGNEndpoint
+from trackerstatus.endpoints.ops import OPSEndpoint
+from trackerstatus.endpoints.ptp import PTPEndpoint
+from trackerstatus.endpoints.red import REDEndpoint
+from trackerstatus.endpoints.status import StatusEndpoint
+
+__version__ = "1.0.0"
+__all__ = [
+    "APIClient",
+    "TrackerStatus",
+    "BaseTrackerEndpoint",
+    "StatusEndpoint",
+    "AREndpoint",
+    "BTNEndpoint",
+    "GGNEndpoint",
+    "PTPEndpoint",
+    "REDEndpoint",
+    "OPSEndpoint",
+]

@@ -1,71 +1,67 @@
+from typing import Any, Dict
+
 from trackerstatus.core import APIClient
+from trackerstatus.endpoints.base import BaseTrackerEndpoint
 
-class BTNEndpoint:
-    def __init__(self, client: APIClient):
-        """
-        Initializes the BTNEndpoint with an APIClient instance.
 
-        Args:
-            client (APIClient): An instance of the APIClient to make HTTP requests.
-        """
-        self.client = client
+class BTNEndpoint(BaseTrackerEndpoint):
+    """Endpoint for retrieving BTN (BroadcastTheNet) specific status information."""
 
-    def get_btn_status(self):
-        """
-        Retrieves the status of all BTN services.
+    def __init__(self, client: APIClient) -> None:
+        super().__init__(client)
+        self._tracker_prefix = "btn"
 
-        Returns:
-            dict: A dictionary containing the status of all BTN services.
+    def get_status(self) -> Dict[str, Any]:
         """
-        endpoint = 'api/status'
-        return self.client.get(endpoint)
-
-    def get_btn_latency(self):
-        """
-        Retrieves the latency of all BTN services.
+        Get the current status of all BTN services.
 
         Returns:
-            dict: A dictionary containing the latency of all BTN services.
+            dict: Status information for all BTN services
         """
-        endpoint = 'api/latency'
-        return self.client.get(endpoint)
+        return self.client.get("api/btn/status")
 
-    def get_btn_uptime(self):
+    def get_latency(self) -> Dict[str, Any]:
         """
-        Retrieves the current uptime of all BTN services.
-
-        Returns:
-            dict: A dictionary containing the current uptime of all BTN services.
-        """
-        endpoint = 'api/uptime'
-        return self.client.get(endpoint)
-
-    def get_btn_records(self):
-        """
-        Retrieves the best recorded uptime of all BTN services.
+        Get the current latency of all BTN services.
 
         Returns:
-            dict: A dictionary containing the best recorded uptime of all BTN services.
+            dict: Latency information for all BTN services
         """
-        endpoint = 'api/records'
-        return self.client.get(endpoint)
+        return self.client.get("api/btn/latency")
 
-    def get_btn_downtime(self):
+    def get_uptime(self) -> Dict[str, Any]:
         """
-        Retrieves the current downtime of all BTN services.
-
-        Returns:
-            dict: A dictionary containing the current downtime of all BTN services.
-        """
-        endpoint = 'api/downtime'
-        return self.client.get(endpoint)
-
-    def get_btn_all(self):
-        """
-        Retrieves combined data of all BTN services including status, latency, uptime, records, and downtime.
+        Get the current uptime of all BTN services.
 
         Returns:
-            dict: A dictionary containing combined data of all BTN services.
+            dict: Uptime information for all BTN services
         """
-        endpoint = 'api/all'
-        return self.client.get(endpoint)
+        return self.client.get("api/btn/uptime")
+
+    def get_records(self) -> Dict[str, Any]:
+        """
+        Get the best recorded uptime of all BTN services.
+
+        Returns:
+            dict: Record information for all BTN services
+        """
+        return self.client.get("api/btn/records")
+
+    def get_downtime(self) -> Dict[str, Any]:
+        """
+        Get the current downtime of all BTN services.
+
+        Returns:
+            dict: Downtime information for all BTN services
+        """
+        return self.client.get("api/btn/downtime")
+
+    def get_all(self) -> Dict[str, Any]:
+        """
+        Get combined data for all BTN services.
+        Includes status, latency, uptime, records, and downtime.
+
+        Returns:
+            dict: Combined information for all BTN services
+        """
+        return self.client.get("api/btn/all")

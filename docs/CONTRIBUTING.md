@@ -1,16 +1,17 @@
 # Contributing to TrackerStatus
 
-Thank you for your interest in contributing to the TrackerStatus project! This document provides guidelines for setting up the project for local development, testing, and building the package.
+Thank you for considering contributing to TrackerStatus! This document provides guidelines and instructions for contributing.
 
 ## Table of Contents
 
-1. [Setting Up the Project](#setting-up-the-project)
+1. [Development Setup](#development-setup)
 1. [Running Tests](#running-tests)
-1. [Type Checking](#type-checking)
-1. [Building the Package](#building-the-package)
-1. [Submitting Changes](#submitting-changes)
+1. [Code Style](#code-style)
+1. [CI/CD Pipeline](#cicd-pipeline)
+1. [Making Changes](#making-changes)
+1. [Pull Request Process](#pull-request-process)
 
-## Setting Up the Project
+## Development Setup
 
 1. **Fork and Clone the Repository**
 
@@ -21,7 +22,19 @@ Thank you for your interest in contributing to the TrackerStatus project! This d
    cd trackerstatus
    ```
 
-2. **Install Dependencies**
+2. **Install Python 3.9 or higher**
+
+   Ensure you have Python 3.9 or higher installed on your system.
+
+3. **Install Poetry (dependency management tool)**
+
+   Poetry is used for managing project dependencies and virtual environments. Install it using the following command:
+
+   ```sh
+   poetry install
+   ```
+
+4. **Install dependencies**
 
    Use Poetry to install the project dependencies:
 
@@ -29,63 +42,61 @@ Thank you for your interest in contributing to the TrackerStatus project! This d
    poetry install
    ```
 
-3. **Activate the Virtual Environment**
+5. **Install pre-commit hooks**
 
-   Activate the virtual environment created by Poetry:
+   Install pre-commit hooks to ensure code quality:
 
    ```sh
-   poetry shell
+   pre-commit install
    ```
 
-## Developer Expectations
+   This will run the following checks before each commit:
+   - Code formatting (black)
+   - Import sorting (isort)
+   - Type checking (mypy)
+   - Linting (pylint)
+   - Various other code quality checks
 
-### Running Tests
+## Running Tests
 
 All new code should have appropriate coverage for functionality. To run the tests, use pytest:
 
-```sh
-pytest
+```bash
+poetry run pytest
 ```
 
 This will discover and run all tests in the tests directory.
 
-### Type Checking
-
-All new code is expected to adhere to mypy standards. To ensure type correctness, use mypy:
+For more detailed output, you can use:
 
 ```sh
-mypy trackerstatus tests
+pytest -v  # Verbose output
+pytest -vv # Very verbose output
+pytest --cov=trackerstatus  # With coverage report
 ```
 
-This checks all Python files in the trackerstatus and tests directories for type correctness.
+## Code Style
 
-## Building the Package
+We use several tools to maintain code quality:
 
-To build the package for local testing, follow these steps:
+- **Black**: Code formatting
+- **isort**: Import sorting
+- **mypy**: Type checking
+- **pylint**: Linting
 
-1. **Build the Package**
+These are all configured in `pyproject.toml` and run automatically via pre-commit hooks.
 
-   Use Poetry to build the package:
+## CI/CD Pipeline
 
-   ```sh
-   poetry build
-   ```
+Our GitHub Actions workflow:
+- Tests against Python 3.9-3.12
+- Runs on Ubuntu latest
+- Checks code formatting and linting
+- Runs all tests with coverage
 
-   This will create the distribution files in the dist directory.
+## Making Changes
 
-2. **Install the Package Locally**
-
-   You can install the built package locally to test it:
-
-   ```sh
-   pip install dist/trackerstatus-0.1.0-py3-none-any.whl
-   ```
-
-   Replace `trackerstatus-0.1.0-py3-none-any.whl` with the actual filename of the built package in dist/
-
-## Submitting Changes
-
-1. **Create a Branch**
+1. **Create a new branch**
 
    Create a new branch for your feature or bug fix:
 
@@ -93,20 +104,23 @@ To build the package for local testing, follow these steps:
    git checkout -b feature/your-feature-name
    ```
 
-2. **Make Changes**
+2. **Make changes**
 
    Make your changes in the new branch.
 
-3. **Commit Changes**
+3. **Write/update tests**
 
-   Commit your changes with a descriptive commit message:
+   Ensure that your changes are covered by tests.
+
+4. **Run pre-commit hooks**
+
+   Run the pre-commit hooks to ensure code quality:
 
    ```sh
-   git add .
-   git commit -m "Add your descriptive commit message here"
+   pre-commit run --all-files
    ```
 
-4. **Push Changes**
+5. **Push changes**
 
    Push your changes to your fork:
 
@@ -114,6 +128,28 @@ To build the package for local testing, follow these steps:
    git push origin feature/your-feature-name
    ```
 
-5. **Open a Pull Request**
+6. **Open a pull request**
 
    Open a pull request on GitHub from your fork to the main repository.
+
+## Pull Request Process
+
+1. **Update documentation if needed**
+
+   Ensure that any changes to the code or functionality are reflected in the documentation.
+
+2. **Add tests for new features**
+
+   If you've added new functionality, make sure to add tests for it.
+
+3. **Ensure CI passes**
+
+   Before merging, ensure that all CI checks pass.
+
+4. **Get review approval**
+
+   Pull requests must be reviewed and approved by at least one maintainer.
+
+5. **Maintainer will merge**
+
+   Once all checks are passed and review is approved, the maintainer will merge the pull request.
