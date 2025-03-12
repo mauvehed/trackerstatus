@@ -32,7 +32,9 @@ def status_endpoint(api_client: APIClient) -> StatusEndpoint:
     return StatusEndpoint(client=api_client)
 
 
-def test_get_tracker_statuses(status_endpoint: StatusEndpoint, requests_mock: Mocker) -> None:
+def test_get_tracker_statuses(
+    status_endpoint: StatusEndpoint, requests_mock: Mocker
+) -> None:
     """
     Tests the get_tracker_statuses method of the StatusEndpoint.
 
@@ -50,7 +52,9 @@ def test_get_tracker_statuses(status_endpoint: StatusEndpoint, requests_mock: Mo
     assert "status_message" in response["ar"]
 
 
-def test_get_status_alias(status_endpoint: StatusEndpoint, requests_mock: Mocker) -> None:
+def test_get_status_alias(
+    status_endpoint: StatusEndpoint, requests_mock: Mocker
+) -> None:
     """
     Test that get_status is properly aliased to get_tracker_statuses.
 

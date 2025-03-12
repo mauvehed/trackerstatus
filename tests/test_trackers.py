@@ -23,7 +23,9 @@ from trackerstatus.endpoints.red import REDEndpoint
         (OPSEndpoint, "ops"),
     ]
 )
-def tracker_endpoint(request: Any, api_client: APIClient) -> Tuple[BaseTrackerEndpoint, str]:
+def tracker_endpoint(
+    request: Any, api_client: APIClient
+) -> Tuple[BaseTrackerEndpoint, str]:
     """
     Parametrized fixture that creates instances of all tracker endpoints.
 
@@ -47,7 +49,14 @@ def test_tracker_prefix(tracker_endpoint: Tuple[BaseTrackerEndpoint, str]) -> No
 
 @pytest.mark.parametrize(
     "method_name",
-    ["get_status", "get_latency", "get_uptime", "get_records", "get_downtime", "get_all"],
+    [
+        "get_status",
+        "get_latency",
+        "get_uptime",
+        "get_records",
+        "get_downtime",
+        "get_all",
+    ],
 )
 def test_endpoint_methods(
     tracker_endpoint: Tuple[BaseTrackerEndpoint, str],
@@ -78,7 +87,8 @@ def test_endpoint_methods(
     assert isinstance(response, dict)
     if method_name == "get_all":
         assert all(
-            key in response for key in ["status", "latency", "uptime", "records", "downtime"]
+            key in response
+            for key in ["status", "latency", "uptime", "records", "downtime"]
         )
     else:
         assert "status_code" in response
@@ -147,4 +157,7 @@ def test_all_response(
     requests_mock.get(url, json=mock_data)
     response = endpoint.get_all()
 
-    assert all(key in response for key in ["status", "latency", "uptime", "records", "downtime"])
+    assert all(
+        key in response
+        for key in ["status", "latency", "uptime", "records", "downtime"]
+    )

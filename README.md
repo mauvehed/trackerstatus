@@ -1,17 +1,15 @@
 # trackerstatus
 [![PyPI](https://img.shields.io/pypi/v/trackerstatus.svg)](https://pypi.org/project/trackerstatus/)
-[![Python Version](https://img.shields.io/pypi/pyversions/trackerstatus.svg)](https://pypi.org/project/
-trackerstatus/)
-[![License](https://img.shields.io/pypi/l/trackerstatus.svg)](https://github.com/mauvehed/trackerstatus/
-blob/main/LICENSE)
+[![Python Version](https://img.shields.io/pypi/pyversions/trackerstatus.svg)](https://pypi.org/project/trackerstatus/)
+[![License](https://img.shields.io/pypi/l/trackerstatus.svg)](https://github.com/mauvehed/trackerstatus/blob/main/LICENSE)
 
 [![CodeQL](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml)
 [![CI](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml)
 [![Release](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml)
+[![Mypy](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml)
+[![Run PyTests and Coverage](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml)
 
-A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific 
-endpoints. This library provides a simple interface to monitor the status of various trackers and their 
-services.
+A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific endpoints. This library provides a simple interface to monitor the status of various trackers and their services.
 - Rate-limited API client (1 request per minute as per API requirements)
 - Support for all tracker-specific endpoints:
   - AlphaRatio (AR)

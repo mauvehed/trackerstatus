@@ -69,7 +69,9 @@ def test_get_request_non_dict_response(requests_mock: MagicMock) -> None:
 def test_get_request_general_error(requests_mock: MagicMock) -> None:
     """Test general error handling."""
     client = APIClient()
-    requests_mock.get("https://trackerstatus.info/api/test", exc=Exception("test error"))
+    requests_mock.get(
+        "https://trackerstatus.info/api/test", exc=Exception("test error")
+    )
 
     with pytest.raises(Exception, match="An error occurred: test error"):
         client.get("api/test")
@@ -83,6 +85,6 @@ def test_url_construction() -> None:
     assert client._construct_url("api/test") == client._construct_url("/api/test")
 
     # Test with full URL
-    assert client._construct_url("https://trackerstatus.info/api/test") == client._construct_url(
-        "api/test"
-    )
+    assert client._construct_url(
+        "https://trackerstatus.info/api/test"
+    ) == client._construct_url("api/test")
