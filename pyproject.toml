@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "trackerstatus"
-version = "1.0.1"
+version = "1.0.2"
 description = "A Python client for the TrackerStatus.info API"
 authors = [{ name = "mauvehed", email = "nate@mvh.dev" }]
 license = "MIT"
@@ -24,7 +24,7 @@ dependencies = [
 requires-python = ">=3.9"
 readme = "README.md"
 maintainers = [{ name = "mauvehed", email = "nate@mvh.dev" }]
-urls = { Homepage = "https://github.com/mauvehed/trackerstatus", Repository = "https://github.com/mauvehed/trackerstatus", Documentation = "https://github.com/mauvehed/trackerstatus/blob/main/docs/api.md" }
+urls = { Homepage = "https://github.com/mauvehed/trackerstatus", Repository = "https://github.com/mauvehed/trackerstatus", Documentation = "https://github.com/mauvehed/trackerstatus/blob/main/docs/API.md" }
 
 [tool.poetry]
 packages = [{include = "trackerstatus"}]
