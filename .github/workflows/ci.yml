@@ -10,9 +10,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
+      fail-fast: false
 
     steps:
     - uses: actions/checkout@v4
@@ -42,7 +44,7 @@ jobs:
         
     - name: Run tests with pytest and coverage
       run: |
-        poetry run pytest --cov=trackerstatus --cov-report=xml --cov-report=html
+        poetry run pytest --cov=trackerstatus --cov-report=xml --cov-report=html -v
         
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -53,5 +55,15 @@ jobs:
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
       with:
-        name: coverage-report
-        path: htmlcov/ 
+        name: coverage-report-${{ matrix.python-version }}
+        path: htmlcov/
+        
+    - name: Upload test logs
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-logs-${{ matrix.python-version }}
+        path: |
+          .pytest_cache/
+          .coverage
+          coverage.xml 
