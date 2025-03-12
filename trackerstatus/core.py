@@ -1,36 +1,79 @@
+import time
+from typing import Any, Dict, Optional
+
 import requests
 
+
 class APIClient:
-    def __init__(self, base_url):
+    """
+    Client for interacting with the trackerstatus.info API.
+    Implements rate limiting (1 request per minute) as per API requirements.
+    """
+
+    def __init__(self, base_url: str = "https://trackerstatus.info"):
         """
-        Initializes the APIClient with a base URL.
+        Initialize the API client.
 
         Args:
-            base_url (str): The base URL for the API endpoints.
+            base_url (str): Base URL for the API. Defaults to https://trackerstatus.info
         """
-        self.base_url = base_url
+        self.base_url = base_url.rstrip("/")
         self.session = requests.Session()
+        self.last_request_time: Optional[float] = None
 
-    def get(self, endpoint, params=None):
+    def _enforce_rate_limit(self) -> None:
+        """Enforce the 1 request per minute rate limit."""
+        if self.last_request_time:
+            elapsed = time.time() - self.last_request_time
+            if elapsed < 60:  # Wait if less than 60 seconds since last request
+                time.sleep(60 - elapsed)
+
+    def _construct_url(self, endpoint: str) -> str:
         """
-        Makes a GET request to the specified endpoint.
+        Construct the full URL for an API endpoint.
 
         Args:
-            endpoint (str): The API endpoint to send the GET request to.
-            params (dict, optional): URL parameters to append to the request.
+            endpoint (str): The API endpoint to construct the URL for
 
         Returns:
-            dict: The JSON response from the API.
+            str: The full URL
+        """
+        # If it's already a full URL, return it
+        if endpoint.startswith(("http://", "https://")):
+            return endpoint
+
+        # Otherwise, join it with the base URL
+        return f'{self.base_url}/{endpoint.lstrip("/")}'
+
+    def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """
+        Make a GET request to the specified endpoint.
+
+        Args:
+            endpoint (str): The API endpoint to query
+            params (dict, optional): Query parameters to include
+
+        Returns:
+            dict: JSON response from the API
 
         Raises:
-            requests.HTTPError: If the HTTP request returned an unsuccessful status code.
+            requests.HTTPError: If the request fails
+            ValueError: If the response is not valid JSON
+            TypeError: If the response is not a dictionary
         """
-        url = f'{self.base_url}/{endpoint}'
-        response = self.session.get(url, params=params)
+        self._enforce_rate_limit()
+
+        url = self._construct_url(endpoint)
+
         try:
+            response = self.session.get(url, params=params)
             response.raise_for_status()
-        except requests.exceptions.HTTPError as http_err:
-            raise SystemExit(f'HTTP error occurred: {http_err}')
+            data = response.json()
+            if not isinstance(data, dict):
+                raise TypeError("API response must be a dictionary")
+            self.last_request_time = time.time()
+            return data
+        except (requests.HTTPError, ValueError, TypeError) as err:
+            raise err
         except Exception as err:
-            raise SystemExit(f'Other error occurred: {err}')
-        return response.json()
+            raise Exception(f"An error occurred: {err}") from err

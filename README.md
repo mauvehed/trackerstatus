@@ -1,131 +1,171 @@
 # trackerstatus
 
 [![PyPI](https://img.shields.io/pypi/v/trackerstatus.svg)](https://pypi.org/project/trackerstatus/)
-[![Python Version](https://img.shields.io/pypi/pyversions/trackerstatus.svg)](https://github.com/mauvehed/yourIP/actions/workflows/main.yml)
-[![CodeQL](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml)
-[![Create release and notes](https://github.com/mauvehed/trackerstatus/actions/workflows/create-new-release.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/create-new-release.yml)
+[![Python Version](https://img.shields.io/pypi/pyversions/trackerstatus.svg)](https://pypi.org/project/trackerstatus/)
+[![License](https://img.shields.io/pypi/l/trackerstatus.svg)](https://github.com/mauvehed/trackerstatus/blob/main/LICENSE)
 
-[![Mypy](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml)
-[![Run PyTests and Coverage](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml)
+A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific endpoints. This library provides a simple interface to monitor the status of various trackers and their services.
 
-A Python library for interacting with the [trackerstatus.info](https://trackerstatus.info) API. Trackerstatus.info provides real-time status updates and historical data for various trackers, helping users monitor and analyze tracker performance.
+## Features
+
+- Rate-limited API client (1 request per minute as per API requirements)
+- Support for all tracker-specific endpoints:
+  - AlphaRatio (AR)
+  - BroadcastTheNet (BTN)
+  - GazelleGames (GGN)
+  - PassThePopcorn (PTP)
+  - Redacted (RED)
+  - Orpheus (OPS)
+- Comprehensive status information including:
+  - Current status
+  - Latency metrics
+  - Uptime statistics
+  - Record uptimes
+  - Downtime tracking
+- Type hints and detailed documentation
+- Extensive test coverage
 
 ## Installation
 
-### Pip
+### Using pip
 
 ```bash
 pip install trackerstatus
 ```
 
-### Poetry
+### Using poetry
 
 ```bash
 poetry add trackerstatus
 ```
 
-## Resources
-
-- Github repo: [https://github.com/mauvehed/trackerstatus/](https://github.com/mauvehed/trackerstatus/)
-- Pip package: [https://pypi.org/project/trackerstatus/](https://pypi.org/project/trackerstatus/)
-
 ## Usage
 
-### Initialization
-
-First, you need to initialize the APIClient and the specific endpoint class you want to use.
+### Basic Usage
 
 ```python
-from trackerstatus.core import APIClient
-from trackerstatus.endpoints.btn import BTNEndpoint
-from trackerstatus.endpoints.status import StatusEndpoint
+from trackerstatus import APIClient, StatusEndpoint
 
-# Initialize the APIClient
-client = APIClient(base_url='https://btn.trackerstatus.info')
+# Initialize the client
+client = APIClient()
 
-# Initialize the BTN endpoint
-btn_api = BTNEndpoint(client=client)
+# Get status for all trackers
+status_api = StatusEndpoint(client)
+all_statuses = status_api.get_tracker_statuses()
 
-# Initialize the Status endpoint
-status_api = StatusEndpoint(client=client)
+# Print status of each tracker
+for tracker, info in all_statuses.items():
+    print(f"{tracker}: {info['status_message']}")
 ```
 
-#### Fetching All Tracker Statuses
+### Tracker-Specific Endpoints
 
 ```python
-statuses = status_api.get_tracker_statuses()
-print(statuses)
+from trackerstatus import APIClient, BTNEndpoint
+
+# Initialize the client
+client = APIClient()
+
+# Create a BTN endpoint instance
+btn = BTNEndpoint(client)
+
+# Get current status
+status = btn.get_status()
+
+# Get latency information
+latency = btn.get_latency()
+
+# Get uptime statistics
+uptime = btn.get_uptime()
+
+# Get all information at once
+all_info = btn.get_all()
 ```
 
-#### Fetching BTN Status
+### Available Endpoints
 
-To get the status of all BTN services use:
+Each tracker endpoint (`AREndpoint`, `BTNEndpoint`, `GGNEndpoint`, `PTPEndpoint`, `REDEndpoint`, `OPSEndpoint`) provides these methods:
 
-```python
-status = btn_api.get_btn_status()
-print("Status:", status)
-```
+- `get_status()`: Current status of all services
+- `get_latency()`: Current response latency
+- `get_uptime()`: Current uptime in minutes
+- `get_records()`: Best recorded uptime
+- `get_downtime()`: Current downtime
+- `get_all()`: Combined data from all endpoints
 
-#### Fetching BTN Latency
+### Status Codes
 
-To get the latency of all BTN services:
+All status responses use these codes:
+- `0`: Offline (no response over past 3 minutes)
+- `1`: Online (perfect response over past 3 minutes)
+- `2`: Unstable (intermittent responses over past 3 minutes)
 
-```python
-latency = btn_api.get_btn_latency()
-print("Latency:", latency)
-```
+## Development
 
-#### Fetching BTN Uptime
-
-To get the current uptime of all BTN services:
-
-```python
-uptime = btn_api.get_btn_uptime()
-print("Uptime:", uptime)
-```
-
-#### Fetching BTN Records
-
-To get the best recorded uptime of all BTN services:
-
-```python
-records = btn_api.get_btn_records()
-print("Records:", records)
-```
-
-#### Fetching BTN Downtime
-
-To get the current downtime of all BTN services:
-
-```python
-downtime = btn_api.get_btn_downtime()
-print("Downtime:", downtime)
-```
-
-#### Fetching All BTN Data
-
-To get all combined data of BTN services including status, latency, uptime, records, and downtime:
-
-```python
-all_data = btn_api.get_btn_all()
-print("All Data:", all_data)
-```
-
-#### Fetching Tracker Statuses
-
-To get the statuses of all trackers:
-
-```python
-tracker_statuses = status_api.get_tracker_statuses()
-print("Tracker Statuses:", tracker_statuses)
-```
-
-## Running Tests
-
-To run tests, you can use pytest. Make sure you have all development dependencies installed:
+### Setting Up Development Environment
 
 ```bash
-poetry install
-poetry shell
-pytest
+# Clone the repository
+git clone https://github.com/mauvehed/trackerstatus.git
+cd trackerstatus
+
+# Install development dependencies
+pip install -e ".[dev,test]"
 ```
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run tests with coverage report
+pytest --cov=trackerstatus
+
+# Run tests and watch for changes
+pytest-watch
+```
+
+### Code Style
+
+The project uses:
+- Black for code formatting
+- isort for import sorting
+- mypy for type checking
+- pylint for linting
+
+Run formatters:
+```bash
+black .
+isort .
+```
+
+Run type checking:
+```bash
+mypy trackerstatus tests
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run the test suite
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [trackerstatus.info](https://trackerstatus.info) for providing the API
+- All tracker-specific status pages:
+  - [ar.trackerstatus.info](https://ar.trackerstatus.info)
+  - [btn.trackerstatus.info](https://btn.trackerstatus.info)
+  - [ggn.trackerstatus.info](https://ggn.trackerstatus.info)
+  - [ptp.trackerstatus.info](https://ptp.trackerstatus.info)
+  - [red.trackerstatus.info](https://red.trackerstatus.info)
+  - [ops.trackerstatus.info](https://ops.trackerstatus.info)
