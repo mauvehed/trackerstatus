@@ -29,9 +29,9 @@ A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API an
 
 The project includes comprehensive documentation:
 
-- [API Reference](docs/api.md) - Detailed API documentation
-- [Examples](docs/EXAMPLES.md) - Various usage examples and best practices
-- [Changelog](CHANGELOG.md) - Version history and changes
+- [API Reference](https://github.com/mauvehed/trackerstatus/blob/main/docs/api.md) - Detailed API documentation
+- [Examples](https://github.com/mauvehed/trackerstatus/blob/main/docs/EXAMPLES.md) - Various usage examples and best practices
+- [Changelog](https://github.com/mauvehed/trackerstatus/blob/main/CHANGELOG.md) - Version history and changes
 
 ## Features
 
@@ -75,9 +75,9 @@ For more detailed examples, see the [examples documentation](docs/EXAMPLES.md).
 
 ## Documentation
 
-- [API Reference](docs/api.md)
-- [Examples](EXAMPLES.md)
-- [Changelog](CHANGELOG.md)
+- [API Reference](https://github.com/mauvehed/trackerstatus/blob/main/docs/api.md)
+- [Examples](https://github.com/mauvehed/trackerstatus/blob/main/docs/EXAMPLES.md)
+- [Changelog](https://github.com/mauvehed/trackerstatus/blob/main/CHANGELOG.md)
 
 ## Development
 
