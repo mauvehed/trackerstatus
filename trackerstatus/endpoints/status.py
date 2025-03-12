@@ -33,13 +33,19 @@ class StatusEndpoint(BaseTrackerEndpoint):
         interpreted_data = {}
         for tracker, status in data.items():
             if isinstance(status, dict):
-                status_code = 2 if status.get("Status") == "unstable" else 1 if status.get("Status") == "online" else 0
+                status_code = (
+                    2
+                    if status.get("Status") == "unstable"
+                    else 1
+                    if status.get("Status") == "online"
+                    else 0
+                )
             else:
                 status_code = status
             interpreted_data[tracker] = {
                 "status_code": status_code,
                 "status_message": self.interpret_status(status_code),
-                "details": status if isinstance(status, dict) else None
+                "details": status if isinstance(status, dict) else None,
             }
 
         return interpreted_data

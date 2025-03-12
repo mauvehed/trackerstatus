@@ -27,4 +27,4 @@ class NBLEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Combined information for all NBL services
         """
-        return self.client.get("api/nbl/all") 
+        return self.client.get("api/nbl/all")

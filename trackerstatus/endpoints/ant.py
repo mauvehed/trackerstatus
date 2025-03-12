@@ -27,4 +27,4 @@ class ANTEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Combined information for all ANT services
         """
-        return self.client.get("api/ant/all") 
+        return self.client.get("api/ant/all")
