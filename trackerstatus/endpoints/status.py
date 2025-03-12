@@ -32,9 +32,14 @@ class StatusEndpoint(BaseTrackerEndpoint):
         # Add human-readable status interpretations
         interpreted_data = {}
         for tracker, status in data.items():
+            if isinstance(status, dict):
+                status_code = 2 if status.get("Status") == "unstable" else 1 if status.get("Status") == "online" else 0
+            else:
+                status_code = status
             interpreted_data[tracker] = {
-                "status_code": status,
-                "status_message": self.interpret_status(status),
+                "status_code": status_code,
+                "status_message": self.interpret_status(status_code),
+                "details": status if isinstance(status, dict) else None
             }
 
         return interpreted_data

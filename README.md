@@ -16,6 +16,8 @@ A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API an
   - PassThePopcorn (PTP)
   - Redacted (RED)
   - Orpheus (OPS)
+  - Nebulance (NBL)
+  - Anthelion (ANT)
 - Comprehensive status information including:
   - Current status
   - Latency metrics
@@ -54,21 +56,22 @@ pip install trackerstatus
 ## Quick Start
 
 ```python
-from trackerstatus import APIClient
+from trackerstatus import APIClient, StatusEndpoint
 
 # Create an API client
 client = APIClient()
 
-# Check a specific tracker's status
-status = client.get_status("ar")  # AlphaRatio
-print(f"Status: {status.status}")
-print(f"Latency: {status.latency}ms")
-print(f"Uptime: {status.uptime}%")
-
-# Or check all trackers
-for tracker in ["ar", "btn", "ggn", "ptp", "red", "ops"]:
-    status = client.get_status(tracker)
-    print(f"{tracker.upper()}: {status.status}")
+# Get overall status of all trackers
+status_endpoint = StatusEndpoint(client)
+all_statuses = status_endpoint.get_status()
+print("Overall Status:")
+for tracker, info in all_statuses.items():
+    print(f"{tracker.upper()}: {info['status_message']}")
+    if info['details']:
+        details = info['details']
+        print(f"  Description: {details.get('Description', 'N/A')}")
+        print(f"  Services: {details.get('Services', {})}")
+        print(f"  Last Update: {details.get('tweet', {}).get('date', 'N/A')}")
 ```
 
 For more detailed examples, see the [examples documentation](https://github.com/mauvehed/trackerstatus/blob/main/docs/EXAMPLES.md).
