@@ -9,8 +9,8 @@ blob/main/LICENSE)
 [![CI](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml)
 [![Release](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml)
 
-A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific 
-endpoints. This library provides a simple interface to monitor the status of various trackers and their 
+A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific
+endpoints. This library provides a simple interface to monitor the status of various trackers and their
 services.
 - Rate-limited API client (1 request per minute as per API requirements)
 - Support for all tracker-specific endpoints:

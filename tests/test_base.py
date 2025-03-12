@@ -55,21 +55,31 @@ def test_required_methods_exist(test_endpoint: BaseTrackerEndpoint) -> None:
         assert callable(getattr(test_endpoint, method))
 
 
-def test_base_get_status(test_endpoint: BaseTrackerEndpoint, requests_mock: Mocker) -> None:
+def test_base_get_status(
+    test_endpoint: BaseTrackerEndpoint, requests_mock: Mocker
+) -> None:
     """Test the base get_status method."""
     mock_data = {
-        "status_code": {"Description": "All systems operational", "Details": {"Website": "1"}}
+        "status_code": {
+            "Description": "All systems operational",
+            "Details": {"Website": "1"},
+        }
     }
     requests_mock.get("https://trackerstatus.info/api/test/status", json=mock_data)
     response = test_endpoint.get_status()
     assert response == mock_data
 
 
-def test_base_get_all(test_endpoint: BaseTrackerEndpoint, requests_mock: Mocker) -> None:
+def test_base_get_all(
+    test_endpoint: BaseTrackerEndpoint, requests_mock: Mocker
+) -> None:
     """Test the base get_all method."""
     mock_data = {
         "status": {
-            "status_code": {"Description": "All systems operational", "Details": {"Website": "1"}}
+            "status_code": {
+                "Description": "All systems operational",
+                "Details": {"Website": "1"},
+            }
         },
         "latency": {"Website": 100},
         "uptime": {"Website": 1440},

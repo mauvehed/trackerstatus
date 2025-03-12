@@ -55,32 +55,32 @@ from trackerstatus import APIClient, StatusEndpoint, TrackerStatus
 def monitor_tracker_status(tracker: str, interval: int = 60) -> None:
     """
     Monitor a specific tracker's status continuously.
-    
+
     Args:
         tracker: The tracker to monitor (e.g., 'btn', 'ar', etc.)
         interval: Time between checks in seconds (default: 60)
     """
     client = APIClient()
     status_api = StatusEndpoint(client)
-    
+
     while True:
         try:
             statuses = status_api.get_tracker_statuses()
             tracker_status = statuses.get(tracker)
-            
+
             if tracker_status:
                 status_code = tracker_status['status_code']
                 message = tracker_status['status_message']
-                
+
                 if status_code == TrackerStatus.ONLINE:
                     print(f"✅ {tracker.upper()}: {message}")
                 elif status_code == TrackerStatus.UNSTABLE:
                     print(f"⚠️ {tracker.upper()}: {message}")
                 else:
                     print(f"❌ {tracker.upper()}: {message}")
-            
+
             sleep(interval)
-            
+
         except Exception as e:
             print(f"Error monitoring {tracker}: {e}")
             sleep(interval)
@@ -99,20 +99,20 @@ from trackerstatus import APIClient, BTNEndpoint
 def generate_uptime_report() -> Dict[str, Any]:
     """
     Generate a detailed uptime report for a tracker.
-    
+
     Returns:
         Dict containing the report data
     """
     client = APIClient()
     btn = BTNEndpoint(client)
-    
+
     # Get all information
     info = btn.get_all()
-    
+
     # Calculate uptime percentage
     total_time = sum(info['uptime'].values()) + sum(info['downtime'].values())
     uptime_percentage = (sum(info['uptime'].values()) / total_time * 100) if total_time > 0 else 0
-    
+
     return {
         'timestamp': datetime.now().isoformat(),
         'status': info['status']['status_code']['Description'],
@@ -157,33 +157,33 @@ def get_tracker_status_with_retry(
 ) -> Optional[Dict[str, Any]]:
     """
     Get tracker status with automatic retries on failure.
-    
+
     Args:
         tracker: The tracker to check
         max_retries: Maximum number of retry attempts
         retry_delay: Delay between retries in seconds
-        
+
     Returns:
         Dict containing status information or None if all retries fail
     """
     client = APIClient()
     status_api = StatusEndpoint(client)
-    
+
     for attempt in range(max_retries):
         try:
             statuses = status_api.get_tracker_statuses()
             return statuses.get(tracker)
-            
+
         except requests.HTTPError as e:
             print(f"HTTP Error (attempt {attempt + 1}/{max_retries}): {e}")
             if attempt < max_retries - 1:
                 print(f"Retrying in {retry_delay} seconds...")
                 sleep(retry_delay)
-                
+
         except Exception as e:
             print(f"Unexpected error: {e}")
             return None
-    
+
     return None
 
 # Example usage
@@ -203,32 +203,32 @@ from trackerstatus import APIClient, StatusEndpoint, TrackerStatus
 def monitor_multiple_trackers(trackers: List[str]) -> Dict[str, Any]:
     """
     Monitor multiple trackers and generate a summary.
-    
+
     Args:
         trackers: List of tracker codes to monitor
-        
+
     Returns:
         Dict containing monitoring results
     """
     client = APIClient()
     status_api = StatusEndpoint(client)
-    
+
     results = {
         'online': [],
         'unstable': [],
         'offline': [],
         'unknown': []
     }
-    
+
     try:
         statuses = status_api.get_tracker_statuses()
-        
+
         for tracker in trackers:
             status = statuses.get(tracker)
             if not status:
                 results['unknown'].append(tracker)
                 continue
-                
+
             status_code = status['status_code']
             if status_code == TrackerStatus.ONLINE:
                 results['online'].append(tracker)
@@ -238,10 +238,10 @@ def monitor_multiple_trackers(trackers: List[str]) -> Dict[str, Any]:
                 results['offline'].append(tracker)
             else:
                 results['unknown'].append(tracker)
-                
+
     except Exception as e:
         print(f"Error monitoring trackers: {e}")
-        
+
     return results
 
 # Example usage
@@ -267,4 +267,4 @@ print(f"Unknown: {', '.join(results['unknown'])}")
 
 5. **Status Interpretation**: Use the `TrackerStatus` enum for status comparisons rather than raw numbers.
 
-These examples demonstrate various ways to use the library effectively. You can combine and modify them based on your specific needs. 
+These examples demonstrate various ways to use the library effectively. You can combine and modify them based on your specific needs.

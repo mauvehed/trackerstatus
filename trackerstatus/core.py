@@ -45,7 +45,9 @@ class APIClient:
         # Otherwise, join it with the base URL
         return f'{self.base_url}/{endpoint.lstrip("/")}'
 
-    def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def get(
+        self, endpoint: str, params: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
         """
         Make a GET request to the specified endpoint.
 
