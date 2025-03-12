@@ -6,8 +6,6 @@
 [![CodeQL](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml)
 [![CI](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml)
 [![Release](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml)
-[![Mypy](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/mypy-linting.yml)
-[![Run PyTests and Coverage](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/pytests-coverage.yml)
 
 A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific endpoints. This library provides a simple interface to monitor the status of various trackers and their services.
 - Rate-limited API client (1 request per minute as per API requirements)
