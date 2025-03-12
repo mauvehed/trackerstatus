@@ -2,11 +2,11 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry]
+[project]
 name = "trackerstatus"
 version = "1.0.0"
 description = "A Python client for the TrackerStatus.info API"
-authors = ["mauvehed <nate@mvh.dev>"]
+authors = [{ name = "mauvehed", email = "nate@mvh.dev" }]
 license = "MIT"
 keywords = ["tracker", "status", "api", "client"]
 classifiers = [
@@ -14,24 +14,24 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
-packages = [{include = "trackerstatus"}]
+dependencies = [
+    "requests>=2.31.0",
+]
+requires-python = ">=3.9"
 readme = "README.md"
-homepage = "https://github.com/mauvehed/trackerstatus"
-repository = "https://github.com/mauvehed/trackerstatus"
-documentation = "https://github.com/mauvehed/trackerstatus/blob/main/docs/api.md"
-maintainers = ["mauvehed <nate@mvh.dev>"]
+maintainers = [{ name = "mauvehed", email = "nate@mvh.dev" }]
+urls = { Homepage = "https://github.com/mauvehed/trackerstatus", Repository = "https://github.com/mauvehed/trackerstatus", Documentation = "https://github.com/mauvehed/trackerstatus/blob/main/docs/api.md" }
 
-[tool.poetry.dependencies]
-python = "^3.8"
-requests = "^2.31.0"
+[tool.poetry]
+packages = [{include = "trackerstatus"}]
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
 requests-mock = "^1.11.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -41,11 +41,10 @@ mypy = "^1.8.0"
 pylint = "^3.0.3"
 pre-commit = "^3.6.0"
 types-requests = "^2.31.0.20240106"
-pytest-cov = "^4.1.0"
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py39']
 include = '\.pyi?$'
 
 [tool.isort]
@@ -58,7 +57,7 @@ use_parentheses = true
 ensure_newline_before_comments = true
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true

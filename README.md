@@ -5,6 +5,10 @@ trackerstatus/)
 [![License](https://img.shields.io/pypi/l/trackerstatus.svg)](https://github.com/mauvehed/trackerstatus/
 blob/main/LICENSE)
 
+[![CodeQL](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/codeql-analysis.yml)
+[![CI](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/ci.yml)
+[![Release](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml/badge.svg)](https://github.com/mauvehed/trackerstatus/actions/workflows/release.yml)
+
 A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific 
 endpoints. This library provides a simple interface to monitor the status of various trackers and their 
 services.
@@ -54,20 +58,24 @@ pip install trackerstatus
 ## Quick Start
 
 ```python
-from trackerstatus import TrackerStatus
+from trackerstatus import APIClient
 
-# Create a tracker status checker
-tracker = TrackerStatus("udp://tracker.example.com:1337")
+# Create an API client
+client = APIClient()
 
-# Check the tracker status
-status = tracker.check()
-
-# Print the results
+# Check a specific tracker's status
+status = client.get_status("ar")  # AlphaRatio
 print(f"Status: {status.status}")
-print(f"Response Time: {status.response_time}ms")
+print(f"Latency: {status.latency}ms")
+print(f"Uptime: {status.uptime}%")
+
+# Or check all trackers
+for tracker in ["ar", "btn", "ggn", "ptp", "red", "ops"]:
+    status = client.get_status(tracker)
+    print(f"{tracker.upper()}: {status.status}")
 ```
 
-For more detailed examples, see the [examples documentation](EXAMPLES.md).
+For more detailed examples, see the [examples documentation](docs/EXAMPLES.md).
 
 ## Documentation
 

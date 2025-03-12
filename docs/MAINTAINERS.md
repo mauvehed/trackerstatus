@@ -1,6 +1,52 @@
-# Maintainers
+# Maintainers Guide
 
-This document is intended to assist the maintainers of this repository and software package with various tasks.
+This document outlines the responsibilities and procedures for maintainers of the TrackerStatus project.
+
+## Responsibilities
+
+1. Review pull requests
+2. Merge approved changes
+3. Release new versions
+4. Maintain documentation
+5. Monitor issues
+6. Ensure code quality
+
+## CI/CD Pipeline
+
+Our GitHub Actions workflow:
+- Runs on every push and pull request
+- Tests against Python 3.9-3.12
+- Performs code quality checks
+- Generates coverage reports
+
+## Release Process
+
+1. Update version in pyproject.toml
+2. Update CHANGELOG.md
+3. Create and push tag
+4. GitHub Actions will:
+   - Run tests
+   - Build package
+   - Create GitHub release
+   - Publish to PyPI
+
+## Code Quality Standards
+
+Ensure all code:
+1. Has type hints
+2. Passes mypy checks
+3. Follows black formatting
+4. Has test coverage
+5. Has documentation
+
+## Documentation
+
+Keep updated:
+1. README.md
+2. API documentation
+3. Contributing guide
+4. Installation instructions
+5. Usage examples
 
 ## Releasing a new version
 
@@ -36,7 +82,7 @@ To create a new release:
 The project uses several GitHub Actions workflows:
 
 1. `ci.yml`: Handles continuous integration
-   - Runs tests across Python 3.8-3.12
+   - Runs tests across Python 3.9-3.12
    - Performs code quality checks (black, isort, mypy, pylint)
    - Generates and uploads coverage reports
    - Runs on push, pull request, and manual trigger
