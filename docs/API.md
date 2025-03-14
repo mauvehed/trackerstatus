@@ -16,12 +16,16 @@ client = APIClient()
 
 ### Methods
 
-#### get(endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]
+#### get(endpoint: str, params: Optional[Dict[str, Any]] = None, tracker_prefix: Optional[str] = None) -> Dict[str, Any]
 
 Make a GET request to the specified endpoint.
 
 ```python
+# For main API
 response = client.get('api/list')
+
+# For tracker-specific endpoints
+response = client.get('api/status', tracker_prefix='btn')  # Uses https://btn.trackerstatus.info/api/status
 ```
 
 ## Endpoints
@@ -41,7 +45,7 @@ statuses = status.get_tracker_statuses()
 
 ##### get_tracker_statuses() -> Dict[str, Dict[str, Any]]
 
-Retrieve the statuses of all trackers. Updates once per minute as per API documentation.
+Retrieve the statuses of all trackers from the main API at trackerstatus.info. Updates once per minute as per API documentation.
 
 Returns:
     dict: Status information for all trackers with the following structure:
@@ -49,7 +53,12 @@ Returns:
     {
         "tracker_name": {
             "status_code": int,  # 0, 1, or 2
-            "status_message": str  # Human-readable status message
+            "status_message": str,  # Human-readable status message
+            "details": {  # Optional detailed information
+                "Description": str,
+                "Services": Dict[str, int],
+                "Details": Dict[str, str]
+            }
         }
     }
     ```
@@ -60,7 +69,7 @@ Alias for `get_tracker_statuses()`. Returns the same format as above.
 
 ### Tracker-Specific Endpoints
 
-All tracker endpoints inherit from `BaseTrackerEndpoint` and provide the following methods:
+All tracker endpoints inherit from `BaseTrackerEndpoint` and provide the following methods. Each tracker has its own subdomain (e.g., btn.trackerstatus.info, ptp.trackerstatus.info) for detailed information.
 
 - `get_status()`: Get current status
   ```python
@@ -108,12 +117,14 @@ All tracker endpoints inherit from `BaseTrackerEndpoint` and provide the followi
 
 Available tracker endpoints:
 
-- `AREndpoint`: AlphaRatio
-- `BTNEndpoint`: BroadcastTheNet
-- `GGNEndpoint`: GazelleGames
-- `PTPEndpoint`: PassThePopcorn
-- `REDEndpoint`: Redacted
-- `OPSEndpoint`: Orpheus
+- `AREndpoint`: AlphaRatio (ar.trackerstatus.info)
+- `BTNEndpoint`: BroadcastTheNet (btn.trackerstatus.info)
+- `GGNEndpoint`: GazelleGames (ggn.trackerstatus.info)
+- `PTPEndpoint`: PassThePopcorn (ptp.trackerstatus.info)
+- `REDEndpoint`: Redacted (red.trackerstatus.info)
+- `OPSEndpoint`: Orpheus (ops.trackerstatus.info)
+- `NBLEndpoint`: Nebulance (nbl.trackerstatus.info)
+- `ANTEndpoint`: Anthelion (ant.trackerstatus.info)
 
 Example usage:
 
@@ -121,8 +132,8 @@ Example usage:
 from trackerstatus import BTNEndpoint
 
 btn = BTNEndpoint(client)
-status = btn.get_status()
-all_info = btn.get_all()
+status = btn.get_status()  # Uses https://btn.trackerstatus.info/api/status
+all_info = btn.get_all()   # Uses https://btn.trackerstatus.info/api/all
 ```
 
 ## Status Codes
