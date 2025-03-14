@@ -35,8 +35,6 @@ class BaseTrackerEndpoint:
         Returns:
             str: The full endpoint path
         """
-        if self._tracker_prefix:
-            return f"api/{self._tracker_prefix}/{endpoint}"
         return f"api/{endpoint}"
 
     def get_status(self) -> Dict[str, Any]:
@@ -46,7 +44,7 @@ class BaseTrackerEndpoint:
         Returns:
             dict: Status information including tweet data
         """
-        return self.client.get(self._get_endpoint("status"))
+        return self.client.get(self._get_endpoint("status"), tracker_prefix=self._tracker_prefix)
 
     def get_latency(self) -> Dict[str, Any]:
         """
@@ -55,7 +53,7 @@ class BaseTrackerEndpoint:
         Returns:
             dict: Latency information for all services
         """
-        return self.client.get(self._get_endpoint("latency"))
+        return self.client.get(self._get_endpoint("latency"), tracker_prefix=self._tracker_prefix)
 
     def get_uptime(self) -> Dict[str, Any]:
         """
@@ -64,7 +62,7 @@ class BaseTrackerEndpoint:
         Returns:
             dict: Uptime information for all services
         """
-        return self.client.get(self._get_endpoint("uptime"))
+        return self.client.get(self._get_endpoint("uptime"), tracker_prefix=self._tracker_prefix)
 
     def get_records(self) -> Dict[str, Any]:
         """
@@ -73,25 +71,26 @@ class BaseTrackerEndpoint:
         Returns:
             dict: Record information for all services
         """
-        return self.client.get(self._get_endpoint("records"))
+        return self.client.get(self._get_endpoint("records"), tracker_prefix=self._tracker_prefix)
 
     def get_downtime(self) -> Dict[str, Any]:
         """
-        Get the current downtime of all services in minutes.
+        Get the current downtime of all services.
 
         Returns:
             dict: Downtime information for all services
         """
-        return self.client.get(self._get_endpoint("downtime"))
+        return self.client.get(self._get_endpoint("downtime"), tracker_prefix=self._tracker_prefix)
 
     def get_all(self) -> Dict[str, Any]:
         """
-        Get combined data for all services including status, latency, uptime, records, and downtime.
+        Get combined data for all services.
+        Includes status, latency, uptime, records, and downtime.
 
         Returns:
             dict: Combined information for all services
         """
-        return self.client.get(self._get_endpoint("all"))
+        return self.client.get(self._get_endpoint("all"), tracker_prefix=self._tracker_prefix)
 
     @staticmethod
     def interpret_status(status: int) -> str:

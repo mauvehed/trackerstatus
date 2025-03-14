@@ -28,12 +28,13 @@ class APIClient:
             if elapsed < 60:  # Wait if less than 60 seconds since last request
                 time.sleep(60 - elapsed)
 
-    def _construct_url(self, endpoint: str) -> str:
+    def _construct_url(self, endpoint: str, tracker_prefix: Optional[str] = None) -> str:
         """
         Construct the full URL for an API endpoint.
 
         Args:
             endpoint (str): The API endpoint to construct the URL for
+            tracker_prefix (str, optional): The tracker prefix for subdomain-based URLs
 
         Returns:
             str: The full URL
@@ -42,11 +43,17 @@ class APIClient:
         if endpoint.startswith(("http://", "https://")):
             return endpoint
 
-        # Otherwise, join it with the base URL
-        return f'{self.base_url}/{endpoint.lstrip("/")}'
+        # For tracker-specific endpoints, use the subdomain
+        if tracker_prefix:
+            base = f"https://{tracker_prefix}.trackerstatus.info"
+        else:
+            base = self.base_url
+
+        # Join with the base URL
+        return f'{base}/{endpoint.lstrip("/")}'
 
     def get(
-        self, endpoint: str, params: Optional[Dict[str, Any]] = None
+        self, endpoint: str, params: Optional[Dict[str, Any]] = None, tracker_prefix: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Make a GET request to the specified endpoint.
@@ -54,6 +61,7 @@ class APIClient:
         Args:
             endpoint (str): The API endpoint to query
             params (dict, optional): Query parameters to include
+            tracker_prefix (str, optional): The tracker prefix for subdomain-based URLs
 
         Returns:
             dict: JSON response from the API
@@ -65,7 +73,7 @@ class APIClient:
         """
         self._enforce_rate_limit()
 
-        url = self._construct_url(endpoint)
+        url = self._construct_url(endpoint, tracker_prefix)
 
         try:
             response = self.session.get(url, params=params)
