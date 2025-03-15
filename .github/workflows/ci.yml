@@ -65,6 +65,6 @@ jobs:
       with:
         name: test-logs-${{ matrix.python-version }}
         path: |
-          .pytest_cache/
-          .coverage
-          coverage.xml 
+          **/.pytest_cache/**
+          **/.coverage
+          **/coverage.xml 
