@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2024-03-15
+
+### Added
+- Support for Nebulance (NBL) and Anthelion (ANT) trackers
+- Added subdomain-based URLs for tracker-specific endpoints
+
+### Fixed
+- Updated API documentation to reflect current implementation
+- Fixed endpoint URL construction for tracker-specific endpoints
+- Improved CI configuration with better pylint settings
+
 ## [1.0.5] - 2024-03-12
 
 ### Changed
@@ -71,3 +82,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mock response structure in tests
 
 [1.0.0]: https://github.com/mauvehed/trackerstatus/releases/tag/v1.0.0
+[1.0.6]: https://github.com/mauvehed/trackerstatus/releases/tag/v1.0.6
