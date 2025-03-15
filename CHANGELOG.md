@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Updated black to 24.3.0+ to address ReDoS vulnerability
 - Fixed Codecov action configuration in CI workflow
+- Bumped pytest to 8.3.5, pytest-cov to 6.0.0, and requests-mock to 1.12.1.
+- Updated black to 25.1.0, isort to 6.0.1, mypy to 1.15.0, pylint to 3.3.5, pre-commit to 4.1.0, and types-requests to 2.28.11.
 
 ## [1.0.6] - 2024-03-15
 
