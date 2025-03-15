@@ -14,7 +14,7 @@ from trackerstatus.endpoints.ptp import PTPEndpoint
 from trackerstatus.endpoints.red import REDEndpoint
 from trackerstatus.endpoints.status import StatusEndpoint
 
-__version__ = "1.0.0"
+__version__ = "1.0.7"
 __all__ = [
     "APIClient",
     "TrackerStatus",
