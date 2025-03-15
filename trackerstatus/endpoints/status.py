@@ -36,9 +36,7 @@ class StatusEndpoint(BaseTrackerEndpoint):
                 status_code = (
                     2
                     if status.get("Status") == "unstable"
-                    else 1
-                    if status.get("Status") == "online"
-                    else 0
+                    else 1 if status.get("Status") == "online" else 0
                 )
             else:
                 status_code = status
