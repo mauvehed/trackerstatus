@@ -28,7 +28,9 @@ class APIClient:
             if elapsed < 60:  # Wait if less than 60 seconds since last request
                 time.sleep(60 - elapsed)
 
-    def _construct_url(self, endpoint: str, tracker_prefix: Optional[str] = None) -> str:
+    def _construct_url(
+        self, endpoint: str, tracker_prefix: Optional[str] = None
+    ) -> str:
         """
         Construct the full URL for an API endpoint.
 
@@ -53,7 +55,10 @@ class APIClient:
         return f'{base}/{endpoint.lstrip("/")}'
 
     def get(
-        self, endpoint: str, params: Optional[Dict[str, Any]] = None, tracker_prefix: Optional[str] = None
+        self,
+        endpoint: str,
+        params: Optional[Dict[str, Any]] = None,
+        tracker_prefix: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Make a GET request to the specified endpoint.
