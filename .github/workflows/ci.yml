@@ -76,4 +76,19 @@ jobs:
     - name: Set result output
       id: set-result
       if: success() && matrix.python-version == '3.12'
-      run: echo "success=true" >> $GITHUB_OUTPUT 
+      run: echo "success=true" >> $GITHUB_OUTPUT
+
+  create-status:
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Create check run
+        uses: LouisBrunner/checks-action@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: CI
+          conclusion: ${{ needs.test.result == 'success' && 'success' || 'failure' }}
+          status: completed
+          output: |
+            {"summary": "CI workflow ${{ needs.test.result == 'success' && 'succeeded' || 'failed' }}"} 
