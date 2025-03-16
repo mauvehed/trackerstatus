@@ -18,7 +18,7 @@ jobs:
         uses: fountainhead/action-wait-for-check@v1.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: test
+          checkName: CI
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           timeoutSeconds: 900
 
