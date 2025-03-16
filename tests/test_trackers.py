@@ -83,15 +83,7 @@ def test_endpoint_methods(
 
     requests_mock.get(url, json=mock_data)
     response = getattr(endpoint, method_name)()
-
-    assert isinstance(response, dict)
-    if method_name == "get_all":
-        assert all(
-            key in response
-            for key in ["status", "latency", "uptime", "records", "downtime"]
-        )
-    else:
-        assert "status_code" in response
+    assert response == mock_data
 
 
 def test_status_response(
@@ -99,7 +91,7 @@ def test_status_response(
 ) -> None:
     """Test the status endpoint response format."""
     endpoint, prefix = tracker_endpoint
-    url = f"https://trackerstatus.info/api/{prefix}/status"
+    url = f"https://{prefix}.trackerstatus.info/api/status"
 
     mock_data = {
         "status_code": {
@@ -117,21 +109,7 @@ def test_status_response(
 
     requests_mock.get(url, json=mock_data)
     response = endpoint.get_status()
-
-    assert "status_code" in response
-    assert "Description" in response["status_code"]
-    assert "Details" in response["status_code"]
-    assert all(
-        key in response["status_code"]["Details"]
-        for key in [
-            "Website",
-            "TrackerHTTP",
-            "TrackerHTTPS",
-            "IRCServer",
-            "IRCTorrentAnnouncer",
-            "IRCUserIdentifier",
-        ]
-    )
+    assert response == mock_data
 
 
 def test_all_response(
@@ -139,25 +117,56 @@ def test_all_response(
 ) -> None:
     """Test the all endpoint response format."""
     endpoint, prefix = tracker_endpoint
-    url = f"https://trackerstatus.info/api/{prefix}/all"
+    url = f"https://{prefix}.trackerstatus.info/api/all"
 
     mock_data = {
         "status": {
             "status_code": {
                 "Description": "All systems operational",
-                "Details": {"Website": "1", "TrackerHTTP": "1", "TrackerHTTPS": "1"},
+                "Details": {
+                    "Website": "1",
+                    "TrackerHTTP": "1",
+                    "TrackerHTTPS": "1",
+                    "IRCServer": "1",
+                    "IRCTorrentAnnouncer": "1",
+                    "IRCUserIdentifier": "1",
+                },
             }
         },
-        "latency": {"Website": 100},
-        "uptime": {"Website": 1440},
-        "records": {"Website": 14400},
-        "downtime": {"Website": 0},
+        "latency": {
+            "Website": 100,
+            "TrackerHTTP": 100,
+            "TrackerHTTPS": 100,
+            "IRCServer": 100,
+            "IRCTorrentAnnouncer": 100,
+            "IRCUserIdentifier": 100,
+        },
+        "uptime": {
+            "Website": 1440,
+            "TrackerHTTP": 1440,
+            "TrackerHTTPS": 1440,
+            "IRCServer": 1440,
+            "IRCTorrentAnnouncer": 1440,
+            "IRCUserIdentifier": 1440,
+        },
+        "records": {
+            "Website": 14400,
+            "TrackerHTTP": 14400,
+            "TrackerHTTPS": 14400,
+            "IRCServer": 14400,
+            "IRCTorrentAnnouncer": 14400,
+            "IRCUserIdentifier": 14400,
+        },
+        "downtime": {
+            "Website": 0,
+            "TrackerHTTP": 0,
+            "TrackerHTTPS": 0,
+            "IRCServer": 0,
+            "IRCTorrentAnnouncer": 0,
+            "IRCUserIdentifier": 0,
+        },
     }
 
     requests_mock.get(url, json=mock_data)
     response = endpoint.get_all()
-
-    assert all(
-        key in response
-        for key in ["status", "latency", "uptime", "records", "downtime"]
-    )
+    assert response == mock_data

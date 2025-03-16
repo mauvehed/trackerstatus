@@ -86,6 +86,6 @@ def test_base_get_all(
         "records": {"Website": 14400},
         "downtime": {"Website": 0},
     }
-    requests_mock.get("https://trackerstatus.info/api/test/all", json=mock_data)
+    requests_mock.get("https://test.trackerstatus.info/api/all", json=mock_data)
     response = test_endpoint.get_all()
     assert response == mock_data
