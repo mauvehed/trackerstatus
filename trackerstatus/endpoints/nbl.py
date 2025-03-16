@@ -18,7 +18,9 @@ class NBLEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Status information for all NBL services
         """
-        return self.client.get("api/nbl/status")
+        return self.client.get(
+            self._get_endpoint("status"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_all(self) -> Dict[str, Any]:
         """
@@ -27,4 +29,6 @@ class NBLEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Combined information for all NBL services
         """
-        return self.client.get("api/nbl/all")
+        return self.client.get(
+            self._get_endpoint("all"), tracker_prefix=self._tracker_prefix
+        )

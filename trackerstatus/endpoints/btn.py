@@ -18,7 +18,9 @@ class BTNEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Status information for all BTN services
         """
-        return self.client.get("api/btn/status")
+        return self.client.get(
+            self._get_endpoint("status"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_latency(self) -> Dict[str, Any]:
         """
@@ -27,7 +29,9 @@ class BTNEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Latency information for all BTN services
         """
-        return self.client.get("api/btn/latency")
+        return self.client.get(
+            self._get_endpoint("latency"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_uptime(self) -> Dict[str, Any]:
         """
@@ -36,7 +40,9 @@ class BTNEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Uptime information for all BTN services
         """
-        return self.client.get("api/btn/uptime")
+        return self.client.get(
+            self._get_endpoint("uptime"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_records(self) -> Dict[str, Any]:
         """
@@ -45,7 +51,9 @@ class BTNEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Record information for all BTN services
         """
-        return self.client.get("api/btn/records")
+        return self.client.get(
+            self._get_endpoint("records"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_downtime(self) -> Dict[str, Any]:
         """
@@ -54,7 +62,9 @@ class BTNEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Downtime information for all BTN services
         """
-        return self.client.get("api/btn/downtime")
+        return self.client.get(
+            self._get_endpoint("downtime"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_all(self) -> Dict[str, Any]:
         """
@@ -64,4 +74,6 @@ class BTNEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Combined information for all BTN services
         """
-        return self.client.get("api/btn/all")
+        return self.client.get(
+            self._get_endpoint("all"), tracker_prefix=self._tracker_prefix
+        )

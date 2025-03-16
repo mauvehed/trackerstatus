@@ -51,8 +51,12 @@ class APIClient:
         else:
             base = self.base_url
 
-        # Join with the base URL
-        return f'{base}/{endpoint.lstrip("/")}'
+        # Join with the base URL and ensure api/ prefix
+        endpoint = endpoint.lstrip("/")
+        if not endpoint.startswith("api/"):
+            endpoint = f"api/{endpoint}"
+
+        return f"{base}/{endpoint}"
 
     def get(
         self,

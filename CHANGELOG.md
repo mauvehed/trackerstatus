@@ -5,11 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2024-03-15
+
+### Fixed
+- Fixed critical bug where tracker-specific endpoints were using incorrect URL format
+  - Changed from `https://trackerstatus.info/api/btn/all` to `https://btn.trackerstatus.info/api/all`
+  - Updated all tracker endpoints to use subdomain-based URLs
+  - Fixed URL construction in APIClient and BaseTrackerEndpoint
+- Fixed black formatting in status.py
+
 ## [1.0.8] - 2024-03-15
 
 ### Fixed
-- Critical bug fix: Updated `__version__` in code to match package version
-- Fixed version mismatch between package metadata and `__version__` variable
+- Fixed critical bug where tracker-specific endpoints were using incorrect URL format
+  - Changed from `https://trackerstatus.info/api/btn/all` to `https://btn.trackerstatus.info/api/all`
+  - Updated all tracker endpoints to use subdomain-based URLs
+  - Fixed URL construction in APIClient and BaseTrackerEndpoint
+- Fixed black formatting in status.py
+- Updated black dependency to 24.3.0+ to address ReDoS vulnerability
+- Fixed Codecov action configuration in CI workflow
+- Bumped pytest to 8.3.5, pytest-cov to 6.0.0, and requests-mock to 1.12.1.
+- Updated black to 25.1.0, isort to 6.0.1, mypy to 1.15.0, pylint to 3.3.5, pre-commit to 4.1.0, and types-requests to 2.28.11.
 
 ## [1.0.7] - 2024-03-15
 

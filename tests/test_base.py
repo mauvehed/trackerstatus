@@ -29,7 +29,7 @@ def test_interpret_status_invalid(test_endpoint: BaseTrackerEndpoint) -> None:
 def test_get_endpoint_with_prefix(test_endpoint: BaseTrackerEndpoint) -> None:
     """Test endpoint URL construction with prefix."""
     # pylint: disable=protected-access
-    assert test_endpoint._get_endpoint("status") == "api/test/status"
+    assert test_endpoint._get_endpoint("status") == "status"
 
 
 def test_get_endpoint_without_prefix(test_endpoint: BaseTrackerEndpoint) -> None:
@@ -37,7 +37,7 @@ def test_get_endpoint_without_prefix(test_endpoint: BaseTrackerEndpoint) -> None
     # pylint: disable=protected-access
     test_endpoint._tracker_prefix = ""
     # pylint: disable=protected-access
-    assert test_endpoint._get_endpoint("status") == "api/status"
+    assert test_endpoint._get_endpoint("status") == "status"
 
 
 def test_required_methods_exist(test_endpoint: BaseTrackerEndpoint) -> None:
@@ -65,7 +65,7 @@ def test_base_get_status(
             "Details": {"Website": "1"},
         }
     }
-    requests_mock.get("https://trackerstatus.info/api/test/status", json=mock_data)
+    requests_mock.get("https://test.trackerstatus.info/api/status", json=mock_data)
     response = test_endpoint.get_status()
     assert response == mock_data
 

@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "trackerstatus"
-version = "1.0.8"
-description = "A Python client for the TrackerStatus.info API"
+version = "1.0.9"
+description = "A Python client for the trackerstatus.info API"
 authors = [{ name = "mauvehed", email = "nate@mvh.dev" }]
 license = "MIT"
 keywords = ["tracker", "status", "api", "client"]

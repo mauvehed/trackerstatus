@@ -18,7 +18,9 @@ class OPSEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Status information for all OPS services
         """
-        return self.client.get("api/ops/status")
+        return self.client.get(
+            self._get_endpoint("status"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_all(self) -> Dict[str, Any]:
         """
@@ -27,4 +29,6 @@ class OPSEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Combined information for all OPS services
         """
-        return self.client.get("api/ops/all")
+        return self.client.get(
+            self._get_endpoint("all"), tracker_prefix=self._tracker_prefix
+        )

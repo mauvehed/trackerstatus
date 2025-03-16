@@ -67,7 +67,7 @@ def test_endpoint_methods(
     """Test all standard methods for each tracker endpoint."""
     endpoint, prefix = tracker_endpoint
     endpoint_name = method_name.split("_")[1]
-    url = f"https://trackerstatus.info/api/{prefix}/{endpoint_name}"
+    url = f"https://{prefix}.trackerstatus.info/api/{endpoint_name}"
 
     # Create appropriate mock response based on the endpoint
     if method_name == "get_all":

@@ -35,7 +35,7 @@ class BaseTrackerEndpoint:
         Returns:
             str: The full endpoint path
         """
-        return f"api/{endpoint}"
+        return endpoint
 
     def get_status(self) -> Dict[str, Any]:
         """

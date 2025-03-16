@@ -18,7 +18,9 @@ class ANTEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Status information for all ANT services
         """
-        return self.client.get("api/ant/status")
+        return self.client.get(
+            self._get_endpoint("status"), tracker_prefix=self._tracker_prefix
+        )
 
     def get_all(self) -> Dict[str, Any]:
         """
@@ -27,4 +29,6 @@ class ANTEndpoint(BaseTrackerEndpoint):
         Returns:
             dict: Combined information for all ANT services
         """
-        return self.client.get("api/ant/all")
+        return self.client.get(
+            self._get_endpoint("all"), tracker_prefix=self._tracker_prefix
+        )
