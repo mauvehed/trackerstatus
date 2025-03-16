@@ -7,7 +7,24 @@ on:
   workflow_dispatch:
 
 jobs:
+  wait-for-ci:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    outputs:
+      ci-result: ${{ steps.wait-for-ci.outputs.conclusion }}
+    steps:
+      - name: Wait for CI workflow
+        id: wait-for-ci
+        uses: fountainhead/action-wait-for-check@v1.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: test
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          timeoutSeconds: 900
+
   release:
+    needs: wait-for-ci
+    if: needs.wait-for-ci.outputs.ci-result == 'success'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

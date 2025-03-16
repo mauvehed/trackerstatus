@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [ main ]
+    tags:
+      - 'v*.*.*'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -11,6 +13,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      success: ${{ steps.set-result.outputs.success }}
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
@@ -67,4 +71,9 @@ jobs:
         path: |
           **/.pytest_cache/**
           **/.coverage
-          **/coverage.xml 
+          **/coverage.xml
+
+    - name: Set result output
+      id: set-result
+      if: success() && matrix.python-version == '3.12'
+      run: echo "success=true" >> $GITHUB_OUTPUT 
