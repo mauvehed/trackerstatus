@@ -10,14 +10,14 @@
 A Python wrapper for the [trackerstatus.info](https://trackerstatus.info) API and its tracker-specific endpoints. This library provides a simple interface to monitor the status of various trackers and their services.
 - Rate-limited API client (1 request per minute as per API requirements)
 - Support for all tracker-specific endpoints:
-  - AlphaRatio (AR)
-  - BroadcastTheNet (BTN)
-  - GazelleGames (GGN)
-  - PassThePopcorn (PTP)
-  - Redacted (RED)
-  - Orpheus (OPS)
-  - Nebulance (NBL)
-  - Anthelion (ANT)
+  - AlphaRatio (ar.trackerstatus.info)
+  - BroadcastTheNet (btn.trackerstatus.info)
+  - GazelleGames (ggn.trackerstatus.info)
+  - PassThePopcorn (ptp.trackerstatus.info)
+  - Redacted (red.trackerstatus.info)
+  - Orpheus (ops.trackerstatus.info)
+  - Nebulance (nbl.trackerstatus.info)
+  - Anthelion (ant.trackerstatus.info)
 - Comprehensive status information including:
   - Current status
   - Latency metrics
@@ -44,7 +44,7 @@ The project includes comprehensive documentation:
   - Status code
   - Error messages
   - Protocol information
-- Easy-to-use API
+- Easy-to-use API with subdomain-based endpoints
 - Comprehensive documentation
 
 ## Installation
@@ -56,7 +56,7 @@ pip install trackerstatus
 ## Quick Start
 
 ```python
-from trackerstatus import APIClient, StatusEndpoint
+from trackerstatus import APIClient, StatusEndpoint, BTNEndpoint
 
 # Create an API client
 client = APIClient()
@@ -72,6 +72,11 @@ for tracker, info in all_statuses.items():
         print(f"  Description: {details.get('Description', 'N/A')}")
         print(f"  Services: {details.get('Services', {})}")
         print(f"  Last Update: {details.get('tweet', {}).get('date', 'N/A')}")
+
+# Get specific tracker status (using subdomain-based endpoint)
+btn = BTNEndpoint(client)
+btn_status = btn.get_status()  # Uses https://btn.trackerstatus.info/api/status
+print(f"\nBTN Status: {btn_status['status_code']['Description']}")
 ```
 
 For more detailed examples, see the [examples documentation](https://github.com/mauvehed/trackerstatus/blob/main/docs/EXAMPLES.md).

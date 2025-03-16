@@ -24,22 +24,60 @@ for tracker, info in all_statuses.items():
 ### Monitoring a Specific Tracker
 
 ```python
-from trackerstatus import APIClient, StatusEndpoint
+from trackerstatus import APIClient, BTNEndpoint
 
 # Initialize the client
 client = APIClient()
 
-# Get status for all trackers
-status_api = StatusEndpoint(client)
-all_statuses = status_api.get_tracker_statuses()
+# Create BTN endpoint (uses btn.trackerstatus.info)
+btn = BTNEndpoint(client)
 
-# Get BTN specific information
-btn_status = all_statuses.get('btn')
-if btn_status:
-    print(f"Status: {btn_status['status_message']}")
-    print(f"Status Code: {btn_status['status_code']}")
-else:
-    print("BTN status not found")
+# Get current status
+status = btn.get_status()
+print(f"Status: {status['status_code']['Description']}")
+
+# Get all information
+all_info = btn.get_all()
+print("\nDetailed Information:")
+print(f"Status: {all_info['status']['status_code']['Description']}")
+print(f"Latency: {all_info['latency']}")
+print(f"Uptime: {all_info['uptime']}")
+```
+
+### Using Different Tracker Endpoints
+
+```python
+from trackerstatus import (
+    APIClient,
+    AREndpoint,    # ar.trackerstatus.info
+    BTNEndpoint,   # btn.trackerstatus.info
+    GGNEndpoint,   # ggn.trackerstatus.info
+    PTPEndpoint,   # ptp.trackerstatus.info
+    REDEndpoint,   # red.trackerstatus.info
+    OPSEndpoint,   # ops.trackerstatus.info
+    NBLEndpoint,   # nbl.trackerstatus.info
+    ANTEndpoint    # ant.trackerstatus.info
+)
+
+client = APIClient()
+
+# Create endpoints
+ar = AREndpoint(client)
+btn = BTNEndpoint(client)
+ggn = GGNEndpoint(client)
+ptp = PTPEndpoint(client)
+red = REDEndpoint(client)
+ops = OPSEndpoint(client)
+nbl = NBLEndpoint(client)
+ant = ANTEndpoint(client)
+
+# Get status for each tracker
+trackers = [ar, btn, ggn, ptp, red, ops, nbl, ant]
+for tracker in trackers:
+    status = tracker.get_status()
+    # Get tracker name from the class name
+    name = tracker.__class__.__name__.replace('Endpoint', '')
+    print(f"{name}: {status['status_code']['Description']}")
 ```
 
 ## Advanced Usage
@@ -49,207 +87,126 @@ else:
 ```python
 from time import sleep
 from typing import Dict, Any
-from trackerstatus import APIClient, StatusEndpoint
+from trackerstatus import APIClient, BTNEndpoint, TrackerStatus
 
-def monitor_tracker_status(tracker: str, interval: int = 60) -> None:
+def monitor_tracker_status(interval: int = 60) -> None:
     """
-    Monitor a specific tracker's status continuously.
+    Monitor BTN's status continuously.
 
     Args:
-        tracker: The tracker to monitor (e.g., 'btn', 'ar', etc.)
         interval: Time between checks in seconds (default: 60)
     """
     client = APIClient()
-    status_api = StatusEndpoint(client)
+    btn = BTNEndpoint(client)
 
     while True:
         try:
-            statuses = status_api.get_tracker_statuses()
-            tracker_status = statuses.get(tracker)
+            status = btn.get_status()
+            description = status['status_code']['Description']
+            details = status['status_code']['Details']
 
-            if tracker_status:
-                status_code = tracker_status['status_code']
-                message = tracker_status['status_message']
-
-                if status_code == 0:  # Online
-                    print(f"✅ {tracker.upper()}: {message}")
-                elif status_code == 1:  # Unstable
-                    print(f"⚠️ {tracker.upper()}: {message}")
-                else:  # Offline
-                    print(f"❌ {tracker.upper()}: {message}")
+            print(f"\nBTN Status: {description}")
+            print("Service Status:")
+            for service, status_code in details.items():
+                if int(status_code) == TrackerStatus.ONLINE:
+                    print(f"✅ {service}")
+                elif int(status_code) == TrackerStatus.UNSTABLE:
+                    print(f"⚠️ {service}")
+                else:
+                    print(f"❌ {service}")
 
             sleep(interval)
 
         except Exception as e:
-            print(f"Error monitoring {tracker}: {e}")
+            print(f"Error monitoring BTN: {e}")
             sleep(interval)
 
 # Example usage
-monitor_tracker_status('btn')
+monitor_tracker_status()
 ```
 
-### Creating a Uptime Report
-
-```python
-from datetime import datetime
-from typing import Dict, Any
-from trackerstatus import APIClient, StatusEndpoint
-
-def generate_uptime_report() -> Dict[str, Any]:
-    """
-    Generate a detailed uptime report for a tracker.
-
-    Returns:
-        Dict containing the report data
-    """
-    client = APIClient()
-    status_api = StatusEndpoint(client)
-    
-    # Get all tracker statuses
-    all_statuses = status_api.get_tracker_statuses()
-    
-    # Get BTN specific information
-    btn_status = all_statuses.get('btn')
-    if not btn_status:
-        return {
-            'timestamp': datetime.now().isoformat(),
-            'error': 'BTN status not found'
-        }
-    
-    return {
-        'timestamp': datetime.now().isoformat(),
-        'status': btn_status['status_message'],
-        'status_code': btn_status['status_code']
-    }
-
-# Example usage
-report = generate_uptime_report()
-print(f"Generated at: {report['timestamp']}")
-print(f"Status: {report['status']}")
-print(f"Status Code: {report['status_code']}")
-```
-
-### Error Handling and Retries
+### Creating a Multi-Tracker Monitor
 
 ```python
 from time import sleep
-from typing import Optional, Dict, Any
-from trackerstatus import APIClient, StatusEndpoint
-import requests
+from typing import Dict, List, Any
+from trackerstatus import (
+    APIClient, TrackerStatus,
+    AREndpoint, BTNEndpoint, GGNEndpoint, PTPEndpoint,
+    REDEndpoint, OPSEndpoint, NBLEndpoint, ANTEndpoint
+)
 
-def get_tracker_status_with_retry(
-    tracker: str,
-    max_retries: int = 3,
-    retry_delay: int = 60
-) -> Optional[Dict[str, Any]]:
+def monitor_all_trackers(interval: int = 60) -> None:
     """
-    Get tracker status with automatic retries on failure.
+    Monitor all trackers continuously.
 
     Args:
-        tracker: The tracker to check
-        max_retries: Maximum number of retry attempts
-        retry_delay: Delay between retries in seconds
-
-    Returns:
-        Dict containing status information or None if all retries fail
+        interval: Time between checks in seconds (default: 60)
     """
     client = APIClient()
-    status_api = StatusEndpoint(client)
 
-    for attempt in range(max_retries):
+    # Create all tracker endpoints
+    trackers = [
+        AREndpoint(client),
+        BTNEndpoint(client),
+        GGNEndpoint(client),
+        PTPEndpoint(client),
+        REDEndpoint(client),
+        OPSEndpoint(client),
+        NBLEndpoint(client),
+        ANTEndpoint(client)
+    ]
+
+    while True:
         try:
-            statuses = status_api.get_tracker_statuses()
-            return statuses.get(tracker)
+            print("\nTracker Status Report:")
+            print("=" * 50)
 
-        except requests.HTTPError as e:
-            print(f"HTTP Error (attempt {attempt + 1}/{max_retries}): {e}")
-            if attempt < max_retries - 1:
-                print(f"Retrying in {retry_delay} seconds...")
-                sleep(retry_delay)
+            for tracker in trackers:
+                name = tracker.__class__.__name__.replace('Endpoint', '')
+                status = tracker.get_status()
+                description = status['status_code']['Description']
+
+                print(f"\n{name}:")
+                print(f"Status: {description}")
+
+                if 'Details' in status['status_code']:
+                    print("Services:")
+                    for service, code in status['status_code']['Details'].items():
+                        status_icon = "✅" if int(code) == TrackerStatus.ONLINE else "❌"
+                        print(f"{status_icon} {service}")
+
+            print("\n" + "=" * 50)
+            sleep(interval)
 
         except Exception as e:
-            print(f"Unexpected error: {e}")
-            return None
-
-    return None
+            print(f"Error in monitoring: {e}")
+            sleep(interval)
 
 # Example usage
-status = get_tracker_status_with_retry('btn')
-if status:
-    print(f"BTN Status: {status['status_message']}")
-else:
-    print("Failed to get BTN status after all retries")
-```
-
-### Monitoring Multiple Trackers
-
-```python
-from typing import Dict, List, Any
-from trackerstatus import APIClient, StatusEndpoint
-
-def monitor_multiple_trackers(trackers: List[str]) -> Dict[str, Any]:
-    """
-    Monitor multiple trackers and generate a summary.
-
-    Args:
-        trackers: List of tracker codes to monitor
-
-    Returns:
-        Dict containing monitoring results
-    """
-    client = APIClient()
-    status_api = StatusEndpoint(client)
-
-    results = {
-        'online': [],
-        'unstable': [],
-        'offline': [],
-        'unknown': []
-    }
-
-    try:
-        statuses = status_api.get_tracker_statuses()
-
-        for tracker in trackers:
-            status = statuses.get(tracker)
-            if not status:
-                results['unknown'].append(tracker)
-                continue
-
-            status_code = status['status_code']
-            if status_code == 0:  # Online
-                results['online'].append(tracker)
-            elif status_code == 1:  # Unstable
-                results['unstable'].append(tracker)
-            else:  # Offline
-                results['offline'].append(tracker)
-
-    except Exception as e:
-        print(f"Error monitoring trackers: {e}")
-
-    return results
-
-# Example usage
-trackers_to_monitor = ['btn', 'ar', 'ggn', 'ptp', 'red', 'ops', 'nbl', 'ant']
-results = monitor_multiple_trackers(trackers_to_monitor)
-
-print("\nTracker Status Summary:")
-print(f"Online: {', '.join(results['online'])}")
-print(f"Unstable: {', '.join(results['unstable'])}")
-print(f"Offline: {', '.join(results['offline'])}")
-print(f"Unknown: {', '.join(results['unknown'])}")
+monitor_all_trackers()
 ```
 
 ## Best Practices
 
-1. **Rate Limiting**: The library handles rate limiting automatically, but be mindful when making multiple requests in quick succession.
+1. **Rate Limiting**: The library handles rate limiting automatically (1 request per minute), but be mindful when monitoring multiple trackers.
 
 2. **Error Handling**: Always implement proper error handling as shown in the examples above.
 
-3. **Resource Management**: The `APIClient` uses a session object for better performance. Create one instance and reuse it.
+3. **Resource Management**: Create one `APIClient` instance and reuse it across all tracker endpoints.
 
-4. **Type Hints**: The library provides type hints for better IDE support and code quality.
+4. **URL Structure**: Each tracker has its own subdomain (e.g., btn.trackerstatus.info). The library handles this automatically when you use the appropriate endpoint class.
 
-5. **Status Interpretation**: Use the status codes (0 for online, 1 for unstable, 2 for offline) for status comparisons.
+5. **Status Codes**: Use the `TrackerStatus` enum for comparing status codes:
+   ```python
+   from trackerstatus import TrackerStatus
+
+   if int(status_code) == TrackerStatus.ONLINE:
+       print("Service is online!")
+   elif int(status_code) == TrackerStatus.UNSTABLE:
+       print("Service is unstable!")
+   else:  # TrackerStatus.OFFLINE
+       print("Service is offline!")
+   ```
 
 These examples demonstrate various ways to use the library effectively. You can combine and modify them based on your specific needs.
