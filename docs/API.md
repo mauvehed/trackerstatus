@@ -24,8 +24,8 @@ Make a GET request to the specified endpoint.
 # For main API
 response = client.get('api/list')
 
-# For tracker-specific endpoints
-response = client.get('api/status', tracker_prefix='btn')  # Uses https://btn.trackerstatus.info/api/status
+# For tracker-specific endpoints (using subdomains)
+response = client.get('status', tracker_prefix='btn')  # Uses https://btn.trackerstatus.info/api/status
 ```
 
 ## Endpoints
@@ -115,7 +115,7 @@ All tracker endpoints inherit from `BaseTrackerEndpoint` and provide the followi
   }
   ```
 
-Available tracker endpoints:
+Available tracker endpoints and their subdomains:
 
 - `AREndpoint`: AlphaRatio (ar.trackerstatus.info)
 - `BTNEndpoint`: BroadcastTheNet (btn.trackerstatus.info)
