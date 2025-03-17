@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Wait for CI workflow
         id: wait-for-ci
-        uses: fountainhead/action-wait-for-check@v1.1.0
+        uses: fountainhead/action-wait-for-check@v1.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: CI
